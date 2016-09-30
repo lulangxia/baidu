@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coor_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_lockscreen_default">
+    android:background="#FAFAFA">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_medialist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#90000000"
+        android:background="#50000000"
         android:paddingTop="50dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -79,10 +80,10 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_gravity="center_horizontal"
                         android:id="@+id/ll_shouhcang"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -109,8 +110,8 @@
                         android:id="@+id/ll_pinglun"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingBottom="3dp"
@@ -135,10 +136,10 @@
                         android:background="@android:color/white" />
 
                     <LinearLayout
-                        android:layout_gravity="center_horizontal"
                         android:id="@+id/ll_fenxiang"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="horizontal"
@@ -162,24 +163,24 @@
 
             </LinearLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
+
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            app:layout_scrollFlags="scroll"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            app:layout_scrollFlags="scroll">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/te_play_medialist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
                     android:drawableLeft="@mipmap/bt_artist_item_play_nor"
+                    android:gravity="center_vertical"
                     android:text="播放全部"
                     android:textColor="@android:color/black" />
 
@@ -188,8 +189,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:layout_toRightOf="@id/te_play_medialist" />
+                    android:layout_toRightOf="@id/te_play_medialist"
+                    android:gravity="center_vertical" />
 
                 <TextView
                     android:id="@+id/tv_download_hot_songmenu"
@@ -202,10 +203,11 @@
                     android:text="下载" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:alpha="0.2" />
+            android:background="@android:color/darker_gray" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

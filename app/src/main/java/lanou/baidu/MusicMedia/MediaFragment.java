@@ -1,9 +1,20 @@
 package lanou.baidu.MusicMedia;
 
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,6 +23,9 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
+import java.io.IOException;
+import java.net.URL;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
@@ -30,6 +44,7 @@ public class MediaFragment extends BaseFragment {
     private RelativeLayout relativeLayout;
     private LinearLayout linearLayout;
     private String url;
+    private CoordinatorLayout coordinatorLayout;
 
 
     public void setUrl(String url) {
@@ -59,6 +74,7 @@ public class MediaFragment extends BaseFragment {
         appBarLayout = bindView(R.id.appbar_medialist);
         relativeLayout = bindView(R.id.user_medialist);
         linearLayout = bindView(R.id.make_medialist);
+        coordinatorLayout = bindView(R.id.coor_back);
     }
 
 
@@ -89,11 +105,12 @@ public class MediaFragment extends BaseFragment {
         GsonRequest<MediaLIstBean> requestmedialist = new GsonRequest<MediaLIstBean>(url, MediaLIstBean.class,
                 new Response.Listener<MediaLIstBean>() {
                     @Override
-                    public void onResponse(MediaLIstBean response) {
+                    public void onResponse(final MediaLIstBean response) {
                         title.setText(response.getTitle());
                         listennum.setText(response.getListenum());
                         tagtext.setText("标签: " + response.getTag());
                         collectnum.setText(response.getCollectnum());
+                        new DownloadImageTask().execute(response.getPic_300());
                         MyImageLoader.myImageLoader(response.getPic_300(), mainimg);
                         int count = response.getContent().size();
                         playnum.setText("/" + count + "首歌");
@@ -105,6 +122,14 @@ public class MediaFragment extends BaseFragment {
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(manager);
 
+                        meidaListAdapter.setOnRecyclerItemClickListener(new MediaListAdapter.OnRecyclerItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+
+                            }
+                        });
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -114,6 +139,55 @@ public class MediaFragment extends BaseFragment {
         });
         VolleySingleton.getInstance().addRequest(requestmedialist);
 
+    }
+
+    private Drawable loadImageFromNetwork(String imageUrl) {
+        Drawable drawable = null;
+        try {
+            // 可以在这里通过第二个参数(文件名)来判断，是否本地有此图片
+            drawable = Drawable.createFromStream(new URL(imageUrl).openStream(), null);
+        } catch (IOException e) {
+            Log.d("skythinking", e.getMessage());
+        }
+        if (drawable == null) {
+            Log.d("skythinking", "null drawable");
+        } else {
+            Log.d("skythinking", "not null drawable");
+        }
+
+        return drawable;
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Drawable> {
+
+        protected Drawable doInBackground(String... urls) {
+            return loadImageFromNetwork(urls[0]);
+        }
+
+        protected void onPostExecute(Drawable result) {
+            BitmapDrawable bd = (BitmapDrawable) result;
+            Bitmap bitmap = changeBackgroundImage(bd.getBitmap());
+            Drawable drawable =new BitmapDrawable(bitmap);
+            coordinatorLayout.setBackground(drawable);
+        }
+    }
+
+
+    public Bitmap changeBackgroundImage(Bitmap sentBitmap) {
+        if (Build.VERSION.SDK_INT > 16) {
+            Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+            final RenderScript rs = RenderScript.create(getContext());
+            final Allocation input = Allocation.createFromBitmap(rs, sentBitmap, Allocation.MipmapControl.MIPMAP_NONE,
+                    Allocation.USAGE_SCRIPT);
+            final Allocation output = Allocation.createTyped(rs, input.getType());
+            final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+            script.setRadius(20.0f);
+            script.setInput(input);
+            script.forEach(output);
+            output.copyTo(bitmap);
+            return bitmap;
+        }
+        return null;
     }
 
 

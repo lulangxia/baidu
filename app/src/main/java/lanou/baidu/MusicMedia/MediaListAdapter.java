@@ -20,6 +20,12 @@ public class MediaListAdapter extends RecyclerView.Adapter {
         this.context = context;
     }
 
+    OnRecyclerItemClickListener onRecyclerItemClickListener;
+
+    public void setOnRecyclerItemClickListener(OnRecyclerItemClickListener onRecyclerItemClickListener) {
+        this.onRecyclerItemClickListener = onRecyclerItemClickListener;
+    }
+
     MediaLIstBean mediaLIstBean;
 
     public void setMediaLIstBean(MediaLIstBean mediaLIstBean) {
@@ -61,7 +67,7 @@ public class MediaListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         switch (getItemViewType(position)) {
             case 0:
                 if (mediaLIstBean.getDesc().length() != 0) {
@@ -70,7 +76,7 @@ public class MediaListAdapter extends RecyclerView.Adapter {
                 }
                 break;
             case 1:
-                MedialistViewHolder medialistViewHolder = (MedialistViewHolder) holder;
+                final MedialistViewHolder medialistViewHolder = (MedialistViewHolder) holder;
                 if (mediaLIstBean.getDesc().length() == 0) {
                     medialistViewHolder.song.setText(mediaLIstBean.getContent().get(position).getTitle());
                     medialistViewHolder.singer.setText(mediaLIstBean.getContent().get(position).getAuthor());
@@ -84,6 +90,7 @@ public class MediaListAdapter extends RecyclerView.Adapter {
                         medialistViewHolder.ksong.setVisibility(View.VISIBLE);
                     }
 
+
                 } else {
                     medialistViewHolder.song.setText(mediaLIstBean.getContent().get(position - 1).getTitle());
                     medialistViewHolder.singer.setText(mediaLIstBean.getContent().get(position - 1).getAuthor());
@@ -96,7 +103,14 @@ public class MediaListAdapter extends RecyclerView.Adapter {
                     if (!mediaLIstBean.getContent().get(position - 1).getIs_ksong().equals("0")) {
                         medialistViewHolder.ksong.setVisibility(View.VISIBLE);
                     }
+
                 }
+                medialistViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onRecyclerItemClickListener.onItemClick(v,medialistViewHolder,medialistViewHolder.getAdapterPosition());
+                    }
+                });
                 break;
             case 2:
                 FootViewHolder footViewHolder = (FootViewHolder) holder;
@@ -144,16 +158,8 @@ public class MediaListAdapter extends RecyclerView.Adapter {
         }
     }
 
-//    holder.song.setText(mediaLIstBean.getContent().get(position).getTitle());
-//    holder.singer.setText(mediaLIstBean.getContent().get(position).getAuthor());
-//    if (mediaLIstBean.getContent().get(position).getHas_mv_mobile() != 0) {
-//        holder.mv.setVisibility(View.VISIBLE);
-//    }
-//    if (mediaLIstBean.getContent().get(position).getHavehigh() != 0) {
-//        holder.sq.setVisibility(View.VISIBLE);
-//    }
-//    if (!mediaLIstBean.getContent().get(position).getIs_ksong().equals("0")) {
-//        holder.ksong.setVisibility(View.VISIBLE);
-//    }
+    public interface OnRecyclerItemClickListener {
+        void onItemClick(View view, RecyclerView.ViewHolder holder, int position);
+    }
 
 }

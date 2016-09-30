@@ -10,8 +10,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import lanou.baidu.MusicMedia.MediaFragment;
 import lanou.baidu.R;
+import lanou.baidu.base.MainActivity;
 import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.base.URLVlaues;
 
 /**
  * Created by dllo on 16/9/23.
@@ -72,7 +75,7 @@ public class SongListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         SLitemViewHolder sLitemViewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.songlist_item, parent, false);
@@ -86,6 +89,17 @@ public class SongListAdapter extends BaseAdapter {
         sLitemViewHolder.textView.setText(arrayList.get(0).getDiyInfo().get(position).getTitle());
         sLitemViewHolder.num.setText(arrayList.get(0).getDiyInfo().get(position).getListen_num() + "");
         sLitemViewHolder.auther.setText("by " + arrayList.get(0).getDiyInfo().get(position).getUsername());
+
+        sLitemViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String listid = arrayList.get(0).getDiyInfo().get(position).getList_id();
+                String url = URLVlaues.SONGLIST_DETAIL_Front + listid + URLVlaues.SONGLIST_DETAIL_BEHIND;
+                MediaFragment mediaFragment = new MediaFragment();
+                mediaFragment.setUrl(url);
+                MainActivity.replacefrag(mediaFragment);
+            }
+        });
 
 //
 //        MyImageLoader.myImageLoader(arrayListold.get(0).getContent().get(position).getPic_300(), sLitemViewHolder.imageView);

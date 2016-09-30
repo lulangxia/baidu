@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 
 import lanou.baidu.MusicMedia.MediaFragment;
-import lanou.baidu.MusicMedia.SendUrl;
 import lanou.baidu.R;
 import lanou.baidu.album.recommend.recommendBean.RecommainBean;
 import lanou.baidu.album.recommend.recommendBean.RecommainBeanSpare;
@@ -51,10 +51,11 @@ public class RecomAdapter extends RecyclerView.Adapter {
 
     private SongLAdapter songLAdapter;
     private Handler mHandler;
-    SendUrl sendurl;
 
-    public void setSendurl(SendUrl sendurl) {
-        this.sendurl = sendurl;
+    Changed changed;
+
+    public void setChanged(Changed changed) {
+        this.changed = changed;
     }
 
     public void setArrayList(ArrayList<RecomBean> arrayList) {
@@ -168,13 +169,19 @@ public class RecomAdapter extends RecyclerView.Adapter {
                                 songLAdapter.setRecommainBean(response);
                                 songLViewHolder.gridView.setNumColumns(3);
                                 songLViewHolder.gridView.setAdapter(songLAdapter);
+                                songLViewHolder.more.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Log.d("RecomAdapter", "aa");
+                                        changed.change();
+                                    }
+                                });
 
                                 songLViewHolder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                         String listid = response.getResult().getDiy().getResult().get(position).getListid();
                                         String url = URLVlaues.SONGLIST_DETAIL_Front + listid + URLVlaues.SONGLIST_DETAIL_BEHIND;
-
                                         MediaFragment mediaFragment = new MediaFragment();
                                         mediaFragment.setUrl(url);
                                         MainActivity.replacefrag(mediaFragment);
@@ -618,6 +625,10 @@ public class RecomAdapter extends RecyclerView.Adapter {
             }).start();
             startin = false;
         }
+    }
+
+    public interface Changed {
+        void change();
     }
 
 }

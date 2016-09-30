@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 import lanou.baidu.R;
+import lanou.baidu.album.AlbumFragment;
 import lanou.baidu.base.BaseFragment;
 import lanou.baidu.base.URLVlaues;
 
@@ -84,6 +85,13 @@ public class RecommendFragment extends BaseFragment {
         recyclerView.setAdapter(recomAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
+
+        recomAdapter.setChanged(new RecomAdapter.Changed() {
+            @Override
+            public void change() {
+                AlbumFragment.replacefrag();
+            }
+        });
 
 
 

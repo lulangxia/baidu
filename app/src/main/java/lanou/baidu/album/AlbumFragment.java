@@ -2,7 +2,9 @@ package lanou.baidu.album;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,9 @@ import lanou.baidu.testFragment;
 public class AlbumFragment extends BaseFragment {
 
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private static ViewPager viewPager;
+    private static FragmentManager manager;
+    private LinearLayout linearLayout;
 
     @Override
     protected int setLayout() {
@@ -31,10 +35,12 @@ public class AlbumFragment extends BaseFragment {
     protected void initView() {
         tabLayout = bindView(R.id.tb_album);
         viewPager = bindView(R.id.vp_album);
+        linearLayout = bindView(R.id.recom_frag);
     }
 
     @Override
     protected void initData() {
+        manager = getChildFragmentManager();
         ArrayList<Fragment> arrayList = new ArrayList<>();
 
         arrayList.add(new RecommendFragment());
@@ -48,5 +54,25 @@ public class AlbumFragment extends BaseFragment {
         viewPager.setAdapter(albumadapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    public static void replacefrag() {
+        AlbumFragment.viewPager.setCurrentItem(1);
     }
 }

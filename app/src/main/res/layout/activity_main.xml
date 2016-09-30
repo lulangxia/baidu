@@ -31,12 +31,12 @@
 
 
                 <ImageView
-                    android:layout_marginLeft="10dp"
                     android:id="@+id/login"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
-                    android:src="@mipmap/bt_minibar_playinglist_normal" />
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/bt_localsonglist_move_press" />
 
                 <ImageView
                     android:id="@+id/search"
@@ -101,30 +101,27 @@
             android:layout_weight="2"
             android:orientation="horizontal">
 
-            <RadioButton
 
-
-                android:id="@+id/list_media"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/bt_minibar_playinglist_normal"
-                android:button="@null" />
-
-            <RadioButton
-
+            <CheckBox
+                android:button="@null"
                 android:id="@+id/start_pause_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/bt_minibar_play_normal"
-                android:button="@null" />
+                android:background="@drawable/play_song" />
 
-            <RadioButton
+            <ImageView
 
                 android:id="@+id/next_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/bt_minibar_next_normal"
-                android:button="@null" />
+                android:background="@mipmap/bt_minibar_next_normal" />
+
+            <ImageView
+                android:id="@+id/list_media"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bt_minibar_playinglist_normal" />
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

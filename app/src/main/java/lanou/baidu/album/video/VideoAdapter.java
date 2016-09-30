@@ -19,13 +19,23 @@ import lanou.baidu.base.MyImageLoader;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder> {
     Context context;
     ArrayList<VideoBean> arrayList;
+    boolean down = false;
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
 
     public VideoAdapter(Context context) {
         this.context = context;
     }
 
-    public void setArrayList(ArrayList<VideoBean> arrayList) {
-        this.arrayList = arrayList;
+    public void setArrayList(ArrayList<VideoBean> arrayList1) {
+        if (down) {
+            arrayList.addAll(arrayList1);
+        }else{
+            this.arrayList = arrayList1;
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -37,7 +47,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
 
     @Override
     public void onBindViewHolder(VideoAdapter.VideoHolder holder, int position) {
-        MyImageLoader.myImageLoader(arrayList.get(0).getResult().getMv_list().get(position).getThumbnail2(),holder.imageView);
+        MyImageLoader.myImageLoader(arrayList.get(0).getResult().getMv_list().get(position).getThumbnail2(), holder.imageView);
         holder.song.setText(arrayList.get(0).getResult().getMv_list().get(position).getTitle());
         holder.singer.setText(arrayList.get(0).getResult().getMv_list().get(position).getArtist());
     }
@@ -50,9 +60,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
     public class VideoHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView song, singer;
+
         public VideoHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView)itemView.findViewById(R.id.img_video_item);
+            imageView = (ImageView) itemView.findViewById(R.id.img_video_item);
             song = (TextView) itemView.findViewById(R.id.song_video_item);
             singer = (TextView) itemView.findViewById(R.id.singer_video_item);
         }

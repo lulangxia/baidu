@@ -3,7 +3,6 @@ package lanou.baidu.album.songlist;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,7 +59,7 @@ public class SongListFragment extends BaseFragment implements View.OnClickListen
         pullMode();
         GsonRequest<SongLIstHotBean> requestSongList = new GsonRequest<SongLIstHotBean>(URLVlaues.SONGLIST_HOT, SongLIstHotBean.class, new Response.Listener<SongLIstHotBean>() {
             @Override
-            public void onResponse(SongLIstHotBean response) {
+            public void onResponse(final SongLIstHotBean response) {
                 ArrayList<SongLIstHotBean> arrayList = new ArrayList<>();
                 songLAdapter = new SongListAdapter(getContext());
 
@@ -68,17 +67,17 @@ public class SongListFragment extends BaseFragment implements View.OnClickListen
                 songLAdapter.setArrayList(arrayList);
                 pullToRefreshGridView.setAdapter(songLAdapter);
 
-                pullToRefreshGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                       // String listid = response.
-                        //String url = URLVlaues.SONGLIST_DETAIL_Front + listid + URLVlaues.SONGLIST_DETAIL_BEHIND;
-
-                       // MediaFragment mediaFragment = new MediaFragment();
-                       // mediaFragment.setUrl(url);
-                       // MainActivity.replacefrag(mediaFragment);
-                    }
-                });
+//                pullToRefreshGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        Log.d("SongListFragment", "aaa");
+//                        String listid = response.getDiyInfo().get(position).getList_id();
+//                        String url = URLVlaues.SONGLIST_DETAIL_Front + listid + URLVlaues.SONGLIST_DETAIL_BEHIND;
+//                        MediaFragment mediaFragment = new MediaFragment();
+//                        mediaFragment.setUrl(url);
+//                        MainActivity.replacefrag(mediaFragment);
+//                    }
+//                });
             }
         }, new Response.ErrorListener() {
             @Override
