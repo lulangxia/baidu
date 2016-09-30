@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rank_rela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:padding="5dp"
+            android:id="@+id/rank_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <ImageButton
+            android:id="@+id/rank_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/rank_image"
+            android:layout_alignRight="@id/rank_image"
+            android:background="@mipmap/rankstart1" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rank_rela"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/rankname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="榜名" />
+
+        <TextView
+            android:id="@+id/rankone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第一" />
+
+        <TextView
+            android:id="@+id/ranktwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第二" />
+
+        <TextView
+            android:id="@+id/rankthree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第三" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_songlist_detail" />
+</RelativeLayout>

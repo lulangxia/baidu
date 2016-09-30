@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_recommend1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/title_recommend1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/img_recommend1"
+            android:text="歌单推荐" />
+
+        <TextView
+            android:id="@+id/more_recommend1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableRight="@mipmap/more"
+            android:text="更多" />
+    </RelativeLayout>
+
+    <lanou.baidu.base.MyGridView
+        android:layout_marginTop="10dp"
+        android:id="@+id/content_recommend1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:verticalSpacing="15dp">
+    </lanou.baidu.base.MyGridView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#D0D0D0" />
+</LinearLayout>
