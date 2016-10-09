@@ -48,11 +48,7 @@ public class GsonRequest<T> extends Request<T> {
         }
 
         Gson gson = new Gson();
-
-
-        return Response.success(gson.fromJson(parsed,mTClass), HttpHeaderParser.parseCacheHeaders(response));
-
-
+        return Response.success(gson.fromJson(parsed, mTClass), HttpHeaderParser.parseCacheHeaders(response));
     }
 
     @Override

@@ -1,7 +1,8 @@
-package lanou.baidu.MusicMedia;
+package lanou.baidu.musicMedia;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +109,7 @@ public class MediaListAdapter extends RecyclerView.Adapter {
                 medialistViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.d("MediaListAdapter", "回调");
                         onRecyclerItemClickListener.onItemClick(v,medialistViewHolder,medialistViewHolder.getAdapterPosition());
                     }
                 });

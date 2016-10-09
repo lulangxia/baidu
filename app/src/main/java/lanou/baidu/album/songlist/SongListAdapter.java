@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import lanou.baidu.MusicMedia.MediaFragment;
+import lanou.baidu.musicMedia.MediaFragment;
 import lanou.baidu.R;
 import lanou.baidu.base.MainActivity;
 import lanou.baidu.base.MyImageLoader;

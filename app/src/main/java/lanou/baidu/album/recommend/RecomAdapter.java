@@ -19,7 +19,7 @@ import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
 
-import lanou.baidu.MusicMedia.MediaFragment;
+import lanou.baidu.musicMedia.MediaFragment;
 import lanou.baidu.R;
 import lanou.baidu.album.recommend.recommendBean.RecommainBean;
 import lanou.baidu.album.recommend.recommendBean.RecommainBeanSpare;

@@ -12,12 +12,12 @@
         "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable/abc_textfield_search_material.xml"
     },
     {
-        "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
-        "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
         "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable/abc_ratingbar_full_material.xml",
         "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable/abc_ratingbar_full_material.xml"
+    },
+    {
+        "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
     },
     {
         "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable/abc_tab_indicator_material.xml",

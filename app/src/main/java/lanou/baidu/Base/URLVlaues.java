@@ -37,8 +37,8 @@ public class URLVlaues {
     public static final String VIDEO_HOT = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&provider=11%2C12&method=baidu.ting.mv.searchMV&format=json&order=0&page_num=1&page_size=20&query=%E5%85%A8%E9%83%A8";
     public static final String VIDEO_NEW = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&provider=11%2C12&method=baidu.ting.mv.searchMV&format=json&order=1&page_num=1&page_size=20&query=%E5%85%A8%E9%83%A8";
 
-    public static String VIDEO_LOAD(int j,int i) {
-        String VIDEO_LOAD_URL = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&provider=11%2C12&method=baidu.ting.mv.searchMV&format=json&order="+j+"&page_num=" + i + "&page_size=20&query=%E5%85%A8%E9%83%A8";
+    public static String VIDEO_LOAD(int j, int i) {
+        String VIDEO_LOAD_URL = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&provider=11%2C12&method=baidu.ting.mv.searchMV&format=json&order=" + j + "&page_num=" + i + "&page_size=20&query=%E5%85%A8%E9%83%A8";
         return VIDEO_LOAD_URL;
     }
 

@@ -1,20 +1,32 @@
 package lanou.baidu.base;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaPlayer;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.album.AlbumFragment;
+import lanou.baidu.eventBus.SendSongMessage;
+import lanou.baidu.musicMedia.PlayService;
 import lanou.baidu.my.MyFragment;
 import lanou.baidu.testFragment;
 
@@ -30,10 +42,16 @@ public class MainActivity extends BaseAty {
     private MediaPlayer player;
     RelativeLayout relativeLayout;
 
+    private PlayService.MusicBinder musicBinder;
+    private Intent mIntent;
+
+
     @Override
     protected int setLayout() {
+        EventBus.getDefault().register(this);
         return R.layout.activity_main;
     }
+
 
     @Override
     protected void initView() {
@@ -46,6 +64,23 @@ public class MainActivity extends BaseAty {
         next = bindView(R.id.next_media);
         list = bindView(R.id.list_media);
         relativeLayout = bindView(R.id.title_main);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void sentText(SendSongMessage sendSongMessage) {
+        String getsong = sendSongMessage.getSong();
+        String getsinger = sendSongMessage.getSinger();
+        String geturl = sendSongMessage.getImgurl();
+        MyImageLoader.myImageLoader(geturl, headimg);
+        song.setText(getsong);
+        singer.setText(getsinger);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -62,7 +97,30 @@ public class MainActivity extends BaseAty {
         mainadapter.setArrayList(arrayList);
         viewPager.setAdapter(mainadapter);
         tabLayout.setupWithViewPager(viewPager);
+//        playrpause.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (musicBinder.isPlaying()) {
+//                    musicBinder.stopPlay();
+//                } else {
+//                    musicBinder.restartMusic();
+//                }
+//            }
+//        });
 
+        playrpause.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isChecked = musicBinder.isPlaying();
+                if (isChecked){
+                    musicBinder.stopPlay();
+                }else {
+                    musicBinder.restartMusic();
+                }
+            }
+        });
+        mIntent = new Intent(this, PlayService.class);
+        startService(mIntent);
 
 
     }
@@ -84,5 +142,19 @@ public class MainActivity extends BaseAty {
 
     }
 
+
+    class PlayConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d("SmsConnection", "onServiceConnected");
+            musicBinder = (PlayService.MusicBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    }
 
 }

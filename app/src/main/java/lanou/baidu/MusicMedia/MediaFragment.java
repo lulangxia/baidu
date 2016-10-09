@@ -1,11 +1,15 @@
-package lanou.baidu.MusicMedia;
+package lanou.baidu.musicMedia;
 
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.IBinder;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -26,6 +30,7 @@ import com.android.volley.VolleyError;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
@@ -45,6 +50,9 @@ public class MediaFragment extends BaseFragment {
     private LinearLayout linearLayout;
     private String url;
     private CoordinatorLayout coordinatorLayout;
+    private PlayService.MusicBinder musicBinder;
+    private PlayConnection connection;
+    private Intent intentser;
 
 
     public void setUrl(String url) {
@@ -80,6 +88,12 @@ public class MediaFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
+        intentser = new Intent(getContext(), PlayService.class);
+        connection = new PlayConnection();
+        getContext().bindService(intentser, connection, getContext().BIND_AUTO_CREATE);
+
+
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -125,7 +139,17 @@ public class MediaFragment extends BaseFragment {
                         meidaListAdapter.setOnRecyclerItemClickListener(new MediaListAdapter.OnRecyclerItemClickListener() {
                             @Override
                             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-
+                                Log.d("MediaFragment", url);
+                                String songid = response.getContent().get(position - 1).getSong_id();
+                                Log.d("MediaFragment", songid);
+                                ArrayList<String> Songlist = new ArrayList<String>();
+                                for (int i = 0; i < position - 1; i++) {
+                                    Songlist.add(response.getContent().get(position - 1).getSong_id());
+                                }
+                                musicBinder.setsonglist(Songlist);
+                                getContext().startService(intentser);
+                                musicBinder.setsongid(songid);
+                                musicBinder.play();
                             }
                         });
 
@@ -167,8 +191,8 @@ public class MediaFragment extends BaseFragment {
         protected void onPostExecute(Drawable result) {
             BitmapDrawable bd = (BitmapDrawable) result;
             Bitmap bitmap = changeBackgroundImage(bd.getBitmap());
-            Drawable drawable =new BitmapDrawable(bitmap);
-            coordinatorLayout.setBackground(drawable);
+            Drawable drawable = new BitmapDrawable(bitmap);
+            appBarLayout.setBackground(drawable);
         }
     }
 
@@ -190,5 +214,24 @@ public class MediaFragment extends BaseFragment {
         return null;
     }
 
+    class PlayConnection implements ServiceConnection {
 
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d("SmsConnection", "onServiceConnected");
+            musicBinder = (PlayService.MusicBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unbindService(connection);
+
+    }
 }
