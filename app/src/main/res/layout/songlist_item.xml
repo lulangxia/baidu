@@ -26,12 +26,14 @@
             android:drawablePadding="3dp"
             android:textColor="#ffffff" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/songlist_play"
             android:layout_width="wrap_content"
-            android:layout_gravity="bottom|right"
             android:layout_height="wrap_content"
-            android:background="@mipmap/rankstart1" />
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/playsonglist" />
 
     </FrameLayout>
 

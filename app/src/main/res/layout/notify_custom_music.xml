@@ -40,6 +40,8 @@
                 android:text="歌手" />
 
             <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/exit_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/notify_play"
+                android:background="@mipmap/bt_notificationbar_pause"
                 />
 
             <ImageView

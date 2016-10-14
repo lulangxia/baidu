@@ -9,23 +9,27 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:padding="5dp"
             android:id="@+id/rank_image"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:padding="5dp" />
 
-        <ImageButton
+        <ImageView
+            android:clickable="true"
             android:id="@+id/rank_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/rank_image"
             android:layout_alignRight="@id/rank_image"
-            android:background="@mipmap/rankstart1" />
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/playrank" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/rank_rela"
         android:orientation="vertical">
 
@@ -54,10 +58,11 @@
             android:text="第三" />
     </LinearLayout>
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_songlist_detail" />
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/more" />
 </RelativeLayout>

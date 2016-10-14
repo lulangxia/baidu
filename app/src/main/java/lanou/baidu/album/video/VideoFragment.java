@@ -1,15 +1,17 @@
 package lanou.baidu.album.video;
 
 import android.graphics.Color;
-import android.support.v7.widget.GridLayoutManager;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     private TextView hotvideo;
     private TextView newvideo;
-    private PullToRefreshRecyclerView recyclerView;
+    private PullToRefreshGridView recyclerView;
 
 
     private static final int MSG_CODE_NEW = 100;
@@ -36,6 +38,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     private VideoAdapter videoAdapter;
     private int i = 2;
     private int k = 2;
+    private VIdeoAdapter2 vIdeoAdapter2;
 
     @Override
     protected int setLayout() {
@@ -51,6 +54,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initData() {
+
+        pullMode();
         hotvideo.setTextColor(Color.GRAY);
         newvideo.setTextColor(Color.BLACK);
         hotvideo.setOnClickListener(this);
@@ -62,19 +67,34 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
                 ArrayList<VideoBean> arrayList = new ArrayList<>();
                 arrayList.add(response);
-                videoAdapter = new VideoAdapter(getContext());
-                videoAdapter.setArrayList(arrayList);
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+//                videoAdapter = new VideoAdapter(getContext());
+//                videoAdapter.setArrayList(arrayList);
+//                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
 
-                recyclerView.setAdapter(videoAdapter);
-                recyclerView.setLayoutManager(gridLayoutManager);
-                recyclerView.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
+                vIdeoAdapter2 = new VIdeoAdapter2(getContext());
+                vIdeoAdapter2.setVideoBean(response);
+                recyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
                     @Override
-                    public void onLoadMoreItems() {
-                        Toast.makeText(mContext, "aa", Toast.LENGTH_SHORT).show();
-                        recyclerView.onFinishLoading(false, false);
+                    public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
+
+                    }
+
+                    @Override
+                    public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
+                        mHandler.sendEmptyMessageDelayed(MSG_CODE_NEW, TIME);
+
                     }
                 });
+                //recyclerView.setLayoutManager(gridLayoutManager);
+//                recyclerView.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
+//                    @Override
+//                    public void onLoadMoreItems() {
+//                        Toast.makeText(mContext, "aa", Toast.LENGTH_SHORT).show();
+//                        mHandler.sendEmptyMessageDelayed(MSG_CODE_NEW,TIME);
+//                    }
+//                });
+                recyclerView.setAdapter(vIdeoAdapter2);
+//                recyclerView.onFinishLoading(true, false);
 
             }
         }, new Response.ErrorListener() {
@@ -85,24 +105,41 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         });
         VolleySingleton.getInstance().addRequest(requestVideoList);
 
-        recyclerView.onFinishLoading(true, false);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.video_new:
+                i=2;
                 GsonRequest<VideoBean> requestVideoList = new GsonRequest<VideoBean>(URLVlaues.VIDEO_NEW, VideoBean.class, new Response.Listener<VideoBean>() {
                     @Override
                     public void onResponse(VideoBean response) {
                         ArrayList<VideoBean> arrayList = new ArrayList<>();
                         arrayList.add(response);
-                        VideoAdapter videoAdapter = new VideoAdapter(getContext());
-                        videoAdapter.setArrayList(arrayList);
-                        Log.d("VideoFragment", "arrayList.get(0).getResult().getMv_list().size():" + arrayList.get(0).getResult().getMv_list().size());
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-                        recyclerView.setAdapter(videoAdapter);
-                        recyclerView.setLayoutManager(gridLayoutManager);
+
+                        // VideoAdapter videoAdapter = new VideoAdapter(getContext());
+//                        videoAdapter.setArrayList(arrayList);
+//                        Log.d("VideoFragment", "arrayList.get(0).getResult().getMv_list().size():" + arrayList.get(0).getResult().getMv_list().size());
+//                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+
+                        vIdeoAdapter2 = new VIdeoAdapter2(getContext());
+                        vIdeoAdapter2.setVideoBean(response);
+                        recyclerView.setAdapter(vIdeoAdapter2);
+                        recyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
+                            @Override
+                            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
+
+                            }
+                            @Override
+                            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
+                                mHandler.sendEmptyMessageDelayed(MSG_CODE_NEW, TIME);
+
+                            }
+                        });
+
+                        //  recyclerView.setLayoutManager(gridLayoutManager);
 
                     }
                 }, new Response.ErrorListener() {
@@ -116,22 +153,32 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                 newvideo.setTextColor(Color.BLACK);
                 break;
             case R.id.video_hot:
+                k=2;
                 GsonRequest<VideoBean> requestVideoListHot = new GsonRequest<VideoBean>(URLVlaues.VIDEO_HOT, VideoBean.class, new Response.Listener<VideoBean>() {
                     @Override
                     public void onResponse(VideoBean response) {
                         ArrayList<VideoBean> arrayList = new ArrayList<>();
                         arrayList.add(response);
-                        VideoAdapter videoAdapter = new VideoAdapter(getContext());
-                        videoAdapter.setArrayList(arrayList);
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-                        recyclerView.setAdapter(videoAdapter);
-                        recyclerView.setLayoutManager(gridLayoutManager);
-//                        recyclerView.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
-//                            @Override
-//                            public void onLoadMoreItems() {
-//                                mHandler.sendEmptyMessageDelayed(MSG_CODE_HOT, TIME);
-//                            }
-//                        });
+//                        VideoAdapter videoAdapter = new VideoAdapter(getContext());
+//                        videoAdapter.setArrayList(arrayList);
+//                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+//                        recyclerView.setAdapter(videoAdapter);
+//                        recyclerView.setLayoutManager(gridLayoutManager);
+                        vIdeoAdapter2 = new VIdeoAdapter2(getContext());
+                        vIdeoAdapter2.setVideoBean(response);
+                        recyclerView.setAdapter(vIdeoAdapter2);
+                        recyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
+                            @Override
+                            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
+
+                            }
+
+                            @Override
+                            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
+                                mHandler.sendEmptyMessageDelayed(MSG_CODE_HOT, TIME);
+
+                            }
+                        });
 
                     }
                 }, new Response.ErrorListener() {
@@ -148,54 +195,80 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
-//    Handler mHandler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//
-//            switch (msg.what) {
-//                case MSG_CODE_NEW:
-//                    Log.d("VideoFragment", "aa");
-//                    GsonRequest<VideoBean> requestVideoListnew = new GsonRequest<VideoBean>(URLVlaues.VIDEO_LOAD(1, i), VideoBean.class, new Response.Listener<VideoBean>() {
-//                        @Override
-//                        public void onResponse(VideoBean response) {
+    public void pullMode() {
+        // 设置PullToRefreshListView的模式
+        recyclerView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+        // 设置PullRefreshListView上提加载时的加载提示
+        recyclerView.getLoadingLayoutProxy(false, true).setPullLabel("上拉更多");
+        recyclerView.getLoadingLayoutProxy(false, true).setRefreshingLabel("正在获取请稍后");
+        recyclerView.getLoadingLayoutProxy(false, true).setReleaseLabel("松开后获取");
+
+
+    }
+
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+                case MSG_CODE_NEW:
+                    Log.d("VideoFragment", i + "");
+                    GsonRequest<VideoBean> requestVideoListnew = new GsonRequest<VideoBean>(URLVlaues.VIDEO_LOAD(1, i), VideoBean.class, new Response.Listener<VideoBean>() {
+                        @Override
+                        public void onResponse(VideoBean response) {
+//                            Log.d("VideoFragmentaaa", URLVlaues.VIDEO_LOAD(1, i));
 //                            ArrayList<VideoBean> arrayList = new ArrayList<>();
 //                            arrayList.add(response);
-//                            videoAdapter.setDown(true);
-//                            videoAdapter.setArrayList(arrayList);
-//                            i++;
-//                            recyclerView.onFinishLoading(true, false);
-//                        }
-//                    }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            error.getMessage();
-//                        }
-//                    });
-//                    VolleySingleton.getInstance().addRequest(requestVideoListnew);
-//                    break;
-//                case MSG_CODE_HOT:
-//                    GsonRequest<VideoBean> requestVideoListhot = new GsonRequest<VideoBean>(URLVlaues.VIDEO_LOAD(0, k), VideoBean.class, new Response.Listener<VideoBean>() {
-//                        @Override
-//                        public void onResponse(VideoBean response) {
+//                            Log.d("VideoFragmentaaa", arrayList.get(0).getResult().getMv_list().get(1).getArtist());
+                            vIdeoAdapter2.setDown(true);
+                            vIdeoAdapter2.setVideoBean(response);
+                            i++;
+                            recyclerView.onRefreshComplete();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.getMessage();
+                        }
+                    });
+                    VolleySingleton.getInstance().addRequest(requestVideoListnew);
+
+
+
+                    break;
+                case MSG_CODE_HOT:
+                    GsonRequest<VideoBean> requestVideoListhot = new GsonRequest<VideoBean>(URLVlaues.VIDEO_LOAD(0, k), VideoBean.class, new Response.Listener<VideoBean>() {
+                        @Override
+                        public void onResponse(VideoBean response) {
 //                            ArrayList<VideoBean> arrayList = new ArrayList<>();
 //                            arrayList.add(response);
 //                            videoAdapter.setDown(true);
 //                            videoAdapter.setArrayList(arrayList);
 //                            k++;
 //                            recyclerView.onFinishLoading(true, false);
-//                        }
-//                    }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            error.getMessage();
-//                        }
-//                    });
-//                    VolleySingleton.getInstance().addRequest(requestVideoListhot);
-//
-//
-//            }
-//
-//        }
-//    };
+
+
+//                            ArrayList<VideoBean> arrayList = new ArrayList<>();
+//                            arrayList.add(response);
+//                            Log.d("VideoFragmentaaa", arrayList.get(0).getResult().getMv_list().get(1).getArtist());
+                            vIdeoAdapter2.setDown(true);
+                            vIdeoAdapter2.setVideoBean(response);
+                            k++;
+                            recyclerView.onRefreshComplete();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.getMessage();
+                        }
+                    });
+                    VolleySingleton.getInstance().addRequest(requestVideoListhot);
+
+
+            }
+
+        }
+    };
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".base.MainActivity">
+    tools:context=".main.MainActivity">
 
     <FrameLayout
         android:id="@+id/replace"
@@ -64,14 +64,16 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="#e5ffffff"
+        android:clickable="true"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/img_media"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
             android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/icon" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -81,16 +83,19 @@
             android:orientation="vertical">
 
             <TextView
-
                 android:id="@+id/song_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="歌名" />
 
             <TextView
                 android:id="@+id/singer_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="歌手" />
         </LinearLayout>
 
@@ -103,11 +108,11 @@
 
 
             <CheckBox
-                android:button="@null"
                 android:id="@+id/start_pause_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/play_song" />
+                android:background="@drawable/play_song"
+                android:button="@null" />
 
             <ImageView
 

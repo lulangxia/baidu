@@ -1,5 +1,8 @@
 package lanou.baidu.musicMedia;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by dllo on 16/10/8.
  */
@@ -88,7 +91,7 @@ public class PlayBean {
         this.bitrate = bitrate;
     }
 
-    public static class SonginfoBean {
+    public static class SonginfoBean implements Parcelable{
         private int special_type;
         private String pic_huge;
         private String resource_type;
@@ -123,6 +126,55 @@ public class PlayBean {
         private String album_no;
         private String resource_type_ext;
         private String ting_uid;
+
+        protected SonginfoBean(Parcel in) {
+            special_type = in.readInt();
+            pic_huge = in.readString();
+            resource_type = in.readString();
+            pic_premium = in.readString();
+            havehigh = in.readInt();
+            author = in.readString();
+            toneid = in.readString();
+            has_mv = in.readInt();
+            song_id = in.readString();
+            piao_id = in.readString();
+            artist_id = in.readString();
+            lrclink = in.readString();
+            relate_status = in.readString();
+            learn = in.readInt();
+            pic_big = in.readString();
+            play_type = in.readInt();
+            album_id = in.readString();
+            album_title = in.readString();
+            bitrate_fee = in.readString();
+            song_source = in.readString();
+            all_artist_id = in.readString();
+            all_artist_ting_uid = in.readString();
+            all_rate = in.readString();
+            charge = in.readInt();
+            copy_type = in.readString();
+            is_first_publish = in.readInt();
+            korean_bb_song = in.readString();
+            pic_radio = in.readString();
+            has_mv_mobile = in.readInt();
+            title = in.readString();
+            pic_small = in.readString();
+            album_no = in.readString();
+            resource_type_ext = in.readString();
+            ting_uid = in.readString();
+        }
+
+        public static final Creator<SonginfoBean> CREATOR = new Creator<SonginfoBean>() {
+            @Override
+            public SonginfoBean createFromParcel(Parcel in) {
+                return new SonginfoBean(in);
+            }
+
+            @Override
+            public SonginfoBean[] newArray(int size) {
+                return new SonginfoBean[size];
+            }
+        };
 
         public int getSpecial_type() {
             return special_type;
@@ -394,6 +446,49 @@ public class PlayBean {
 
         public void setTing_uid(String ting_uid) {
             this.ting_uid = ting_uid;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(special_type);
+            dest.writeString(pic_huge);
+            dest.writeString(resource_type);
+            dest.writeString(pic_premium);
+            dest.writeInt(havehigh);
+            dest.writeString(author);
+            dest.writeString(toneid);
+            dest.writeInt(has_mv);
+            dest.writeString(song_id);
+            dest.writeString(piao_id);
+            dest.writeString(artist_id);
+            dest.writeString(lrclink);
+            dest.writeString(relate_status);
+            dest.writeInt(learn);
+            dest.writeString(pic_big);
+            dest.writeInt(play_type);
+            dest.writeString(album_id);
+            dest.writeString(album_title);
+            dest.writeString(bitrate_fee);
+            dest.writeString(song_source);
+            dest.writeString(all_artist_id);
+            dest.writeString(all_artist_ting_uid);
+            dest.writeString(all_rate);
+            dest.writeInt(charge);
+            dest.writeString(copy_type);
+            dest.writeInt(is_first_publish);
+            dest.writeString(korean_bb_song);
+            dest.writeString(pic_radio);
+            dest.writeInt(has_mv_mobile);
+            dest.writeString(title);
+            dest.writeString(pic_small);
+            dest.writeString(album_no);
+            dest.writeString(resource_type_ext);
+            dest.writeString(ting_uid);
         }
     }
 

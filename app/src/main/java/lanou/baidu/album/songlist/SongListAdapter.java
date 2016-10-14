@@ -8,13 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
-import lanou.baidu.musicMedia.MediaFragment;
 import lanou.baidu.R;
-import lanou.baidu.base.MainActivity;
+import lanou.baidu.base.GsonRequest;
+import lanou.baidu.main.MainActivity;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.URLVlaues;
+import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.eventBus.MusicBean;
+import lanou.baidu.eventBus.MyMusicBean;
+import lanou.baidu.musicMedia.MediaFragment;
+import lanou.baidu.musicMedia.MediaLIstBean;
 
 /**
  * Created by dllo on 16/9/23.
@@ -22,9 +32,11 @@ import lanou.baidu.base.URLVlaues;
 public class SongListAdapter extends BaseAdapter {
 
     ArrayList<SongListOldBean> arrayListold = new ArrayList<>();
-
+    ArrayList<String> Songlist = new ArrayList<>();
     Context context;
     boolean down = false;
+    private MusicBean musicBean;
+    private MyMusicBean myMusicBean;
 
     ArrayList<SongLIstHotBean> arrayList = new ArrayList<>();
 
@@ -76,6 +88,8 @@ public class SongListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
+
         SLitemViewHolder sLitemViewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.songlist_item, parent, false);
@@ -101,16 +115,44 @@ public class SongListAdapter extends BaseAdapter {
             }
         });
 
-//
-//        MyImageLoader.myImageLoader(arrayListold.get(0).getContent().get(position).getPic_300(), sLitemViewHolder.imageView);
-//        sLitemViewHolder.textView.setText(arrayListold.get(0).getContent().get(position).getTitle());
-//        sLitemViewHolder.num.setVisibility(View.INVISIBLE);
-//        sLitemViewHolder.auther.setText(arrayListold.get(0).getContent().get(position).getDesc());
+        sLitemViewHolder.playall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String listid = arrayList.get(0).getDiyInfo().get(position).getList_id();
+                String url = URLVlaues.SONGLIST_DETAIL_Front + listid + URLVlaues.SONGLIST_DETAIL_BEHIND;
+                MediaFragment mediaFragment = new MediaFragment();
+                mediaFragment.setUrl(url);
+                GsonRequest<MediaLIstBean> requestmedialist = new GsonRequest<MediaLIstBean>(url, MediaLIstBean.class,
+                        new Response.Listener<MediaLIstBean>() {
+                            @Override
+                            public void onResponse(final MediaLIstBean response) {
+
+                                ArrayList<MusicBean> arraylist = new ArrayList<>();
+                                for (int i = 0; i < response.getContent().size(); i++) {
+                                    musicBean = new MusicBean(response.getContent().get(i).getTitle(), response.getContent().get(i).getAuthor(), response.getContent().get(i).getSong_id());
+                                    arraylist.add(musicBean);
+                                }
+                                myMusicBean = new MyMusicBean();
+                                myMusicBean.setMusicBeen(arraylist);
+                                myMusicBean.setPosition(0);
+                                EventBus.getDefault().post(myMusicBean);
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.getMessage();
+                    }
+                });
+                VolleySingleton.getInstance().addRequest(requestmedialist);
+            }
+        });
         return convertView;
     }
 
     class SLitemViewHolder {
-        ImageView imageView;
+        ImageView imageView, playall;
         TextView textView, num, auther;
 
         public SLitemViewHolder(View convertView) {
@@ -118,6 +160,9 @@ public class SongListAdapter extends BaseAdapter {
             textView = (TextView) convertView.findViewById(R.id.title_songlist);
             num = (TextView) convertView.findViewById(R.id.lisnumlist);
             auther = (TextView) convertView.findViewById(R.id.by_auther);
+            playall = (ImageView) convertView.findViewById(R.id.songlist_play);
         }
     }
+
+
 }

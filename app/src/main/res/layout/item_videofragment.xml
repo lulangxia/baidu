@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_marginTop="5dp"
+    android:clickable="true"
     android:layout_marginRight="5dp"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/img_video_item"
-        android:layout_width="190dp"
-        android:layout_height="100dp"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -17,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="2" />
+        android:maxLines="1" />
 
     <TextView
         android:id="@+id/singer_video_item"

@@ -72,12 +72,12 @@
         "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable-hdpi-v4/abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/abc_popup_background_mtrl_mult.9.png",
-        "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable-hdpi-v4/abc_popup_background_mtrl_mult.9.png"
-    },
-    {
         "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/abc_btn_rating_star_on_mtrl_alpha.png",
         "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable-hdpi-v4/abc_btn_rating_star_on_mtrl_alpha.png"
+    },
+    {
+        "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/abc_popup_background_mtrl_mult.9.png",
+        "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/drawable-hdpi-v4/abc_popup_background_mtrl_mult.9.png"
     },
     {
         "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/abc_list_pressed_holo_light.9.png",

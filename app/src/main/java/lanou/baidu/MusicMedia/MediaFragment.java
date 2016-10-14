@@ -1,15 +1,12 @@
 package lanou.baidu.musicMedia;
 
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.IBinder;
+import android.os.Handler;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -28,16 +25,22 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
 import lanou.baidu.base.GsonRequest;
-import lanou.baidu.base.MainActivity;
+import lanou.baidu.main.MainActivity;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.eventBus.MusicBean;
+import lanou.baidu.eventBus.MyMusicBean;
 
 public class MediaFragment extends BaseFragment {
 
@@ -50,10 +53,11 @@ public class MediaFragment extends BaseFragment {
     private LinearLayout linearLayout;
     private String url;
     private CoordinatorLayout coordinatorLayout;
-    private PlayService.MusicBinder musicBinder;
-    private PlayConnection connection;
-    private Intent intentser;
 
+    private MusicBean musicBean;
+    private MyMusicBean myMusicBean;
+    private Handler mHandler;
+    private LinearLayout linearLayout1;
 
     public void setUrl(String url) {
         this.url = url;
@@ -83,17 +87,14 @@ public class MediaFragment extends BaseFragment {
         relativeLayout = bindView(R.id.user_medialist);
         linearLayout = bindView(R.id.make_medialist);
         coordinatorLayout = bindView(R.id.coor_back);
+        linearLayout1 = bindView(R.id.ll_fenxiang);
     }
 
 
     @Override
     protected void initData() {
 
-        intentser = new Intent(getContext(), PlayService.class);
-        connection = new PlayConnection();
-        getContext().bindService(intentser, connection, getContext().BIND_AUTO_CREATE);
-
-
+        ShareSDK.initSDK(getContext());
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -135,21 +136,53 @@ public class MediaFragment extends BaseFragment {
                         recyclerView.setAdapter(meidaListAdapter);
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(manager);
+                        ArrayList<MusicBean> arraylist = new ArrayList<>();
+                        for (int i = 0; i < response.getContent().size(); i++) {
+                            musicBean = new MusicBean(response.getContent().get(i).getTitle(), response.getContent().get(i).getAuthor(), response.getContent().get(i).getSong_id());
+                            arraylist.add(musicBean);
+                        }
+                        myMusicBean = new MyMusicBean();
+                        myMusicBean.setMusicBeen(arraylist);
 
                         meidaListAdapter.setOnRecyclerItemClickListener(new MediaListAdapter.OnRecyclerItemClickListener() {
                             @Override
                             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                                Log.d("MediaFragment", url);
-                                String songid = response.getContent().get(position - 1).getSong_id();
-                                Log.d("MediaFragment", songid);
-                                ArrayList<String> Songlist = new ArrayList<String>();
-                                for (int i = 0; i < position - 1; i++) {
-                                    Songlist.add(response.getContent().get(position - 1).getSong_id());
-                                }
-                                musicBinder.setsonglist(Songlist);
-                                getContext().startService(intentser);
-                                musicBinder.setsongid(songid);
-                                musicBinder.play();
+                                myMusicBean.setPosition(position - 1);
+                                EventBus.getDefault().post(myMusicBean);
+                            }
+                        });
+
+                        linearLayout1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                OnekeyShare oks = new OnekeyShare();
+                                //关闭sso授权
+                                oks.disableSSOWhenAuthorize();
+
+// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+                                //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+                                // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+                                oks.setTitle(response.getTitle());
+                                // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+                                oks.setTitleUrl(response.getUrl());
+                                // text是分享文本，所有平台都需要这个字段
+                                oks.setText("分享这个动听的歌单");
+                                //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
+                                oks.setImageUrl(response.getPic_300());
+                                // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+                                //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+                                // url仅在微信（包括好友和朋友圈）中使用
+                                oks.setUrl(response.getUrl());
+                                // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+                                oks.setComment(response.getTag());
+                                // site是分享此内容的网站名称，仅在QQ空间使用
+                                oks.setSite("来自百度音乐");
+                                // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+                                oks.setSiteUrl(response.getUrl());
+
+// 启动分享GUI
+                                oks.show(getContext());
                             }
                         });
 
@@ -214,24 +247,11 @@ public class MediaFragment extends BaseFragment {
         return null;
     }
 
-    class PlayConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d("SmsConnection", "onServiceConnected");
-            musicBinder = (PlayService.MusicBinder) service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getContext().unbindService(connection);
-
     }
+
+
 }

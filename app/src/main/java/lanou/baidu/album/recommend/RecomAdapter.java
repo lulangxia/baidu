@@ -35,7 +35,7 @@ import lanou.baidu.album.recommend.recomsonadapter.RadioAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.SongLAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.TodayAdapter;
 import lanou.baidu.base.GsonRequest;
-import lanou.baidu.base.MainActivity;
+import lanou.baidu.main.MainActivity;
 import lanou.baidu.base.MyGridView;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.URLVlaues;
@@ -114,6 +114,7 @@ public class RecomAdapter extends RecyclerView.Adapter {
 
                                 headAdapter.setRecommendNew(response);
                                 headViewHolder.viewPager.setAdapter(headAdapter);
+                                headViewHolder.viewPager.setCurrentItem(2);
                                 roating(headViewHolder);
                                 MyImageLoader.myImageLoader(response.getResult().getEntry().getResult().get(0).getIcon(), headViewHolder.imageView1);
                                 MyImageLoader.myImageLoader(response.getResult().getEntry().getResult().get(1).getIcon(), headViewHolder.imageView2);

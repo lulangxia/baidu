@@ -110,7 +110,7 @@ public class MediaListAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         Log.d("MediaListAdapter", "回调");
-                        onRecyclerItemClickListener.onItemClick(v,medialistViewHolder,medialistViewHolder.getAdapterPosition());
+                        onRecyclerItemClickListener.onItemClick(v, medialistViewHolder, medialistViewHolder.getAdapterPosition());
                     }
                 });
                 break;
@@ -153,6 +153,8 @@ public class MediaListAdapter extends RecyclerView.Adapter {
 
         }
     }
+
+
 
     class FootViewHolder extends RecyclerView.ViewHolder {
         public FootViewHolder(View itemView) {

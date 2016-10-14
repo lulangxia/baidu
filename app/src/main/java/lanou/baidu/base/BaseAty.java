@@ -47,4 +47,6 @@ public abstract class BaseAty extends AppCompatActivity {
     protected <T extends View> T bindView(int id) {
         return (T) findViewById(id);
     }
+
+
 }

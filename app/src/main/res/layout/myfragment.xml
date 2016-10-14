@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:clickable="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <ScrollView
@@ -72,20 +73,22 @@
                     android:layout_above="@id/random_my"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="25dp"
-                    android:src="@mipmap/ic_mymusic_try_normal" />
+                    android:clickable="true"
+                    android:src="@drawable/presslike" />
             </RelativeLayout>
 
             <LinearLayout
-                android:background="#FAFAFA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FAFAFA"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout_my_local"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/recycle">
 
                     <ImageView
                         android:id="@+id/img_my_localMusic"
@@ -136,7 +139,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/recycle"
+                    android:clickable="true">
 
                     <ImageView
                         android:id="@+id/my_img_lastPlayMusic"
@@ -186,7 +191,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/recycle"
+                    android:clickable="true">
 
                     <ImageView
                         android:id="@+id/my_img_downLoadMusic"
@@ -257,7 +264,9 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/recycle"
+                    android:clickable="true">
 
                     <ImageView
                         android:id="@+id/my_img_myFavorite"
@@ -303,11 +312,11 @@
                     android:layout_height="wrap_content" />
 
                 <View
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
                     android:alpha="0.5"
                     android:background="@android:color/darker_gray" />
 

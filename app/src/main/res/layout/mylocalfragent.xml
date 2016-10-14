@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/holo_blue_light">
+
+
+        <TextView
+            android:id="@+id/return_mylocalmusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@mipmap/bt_return_nor"
+            android:drawablePadding="5dp"
+            android:text="本地音乐"
+            android:textColor="#ffffff" />
+
+        <ImageView
+            android:id="@+id/paixu_mylocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_localmusic_sort" />
+
+        <ImageView
+            android:id="@+id/saomiao_mylocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/paixu_mylocal"
+            android:src="@mipmap/ic_localmusic_scan" />
+
+        <ImageView
+            android:id="@+id/sousuo_mylocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/saomiao_mylocal"
+            android:src="@mipmap/ic_localmusic_search" />
+
+
+    </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_mylocal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_mylocal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"></android.support.v4.view.ViewPager>
+</LinearLayout>

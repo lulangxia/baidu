@@ -41,5 +41,12 @@ public class URLVlaues {
         String VIDEO_LOAD_URL = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&provider=11%2C12&method=baidu.ting.mv.searchMV&format=json&order=" + j + "&page_num=" + i + "&page_size=20&query=%E5%85%A8%E9%83%A8";
         return VIDEO_LOAD_URL;
     }
+    public static final int SHUNXU = 701;
+
+    public static final int XUNHUAN = 702;
+
+    public static final int SUIJI = 703;
+
+    public static final int DANQU = 704;
 
 }

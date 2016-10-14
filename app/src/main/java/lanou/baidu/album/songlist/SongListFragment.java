@@ -208,4 +208,9 @@ public class SongListFragment extends BaseFragment implements View.OnClickListen
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
