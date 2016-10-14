@@ -81,7 +81,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
                     @Override
                     public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
-                        mHandler.sendEmptyMessageDelayed(MSG_CODE_NEW, TIME);
+                        mHandler.sendEmptyMessage(MSG_CODE_NEW);
 
                     }
                 });

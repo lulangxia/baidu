@@ -223,9 +223,11 @@ public class MediaFragment extends BaseFragment {
 
         protected void onPostExecute(Drawable result) {
             BitmapDrawable bd = (BitmapDrawable) result;
-            Bitmap bitmap = changeBackgroundImage(bd.getBitmap());
-            Drawable drawable = new BitmapDrawable(bitmap);
-            appBarLayout.setBackground(drawable);
+            if (bd != null) {
+                Bitmap bitmap = changeBackgroundImage(bd.getBitmap());
+                Drawable drawable = new BitmapDrawable(bitmap);
+                appBarLayout.setBackground(drawable);
+            }
         }
     }
 

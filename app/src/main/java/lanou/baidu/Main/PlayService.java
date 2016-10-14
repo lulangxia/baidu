@@ -117,9 +117,9 @@ public class PlayService extends Service {
                         int progress = (int) (position * 100f / duration);
 
                         sendIntent.putExtra("progress", progress);
-                        sendIntent.putExtra("position", position);//在MainJumpLurocsFragment里接收,用于设置歌词的滚动
+                        sendIntent.putExtra("position", position);
                         sendIntent.putExtra("boolean", mMediaPlayer.isPlaying());
-                        sendIntent.putExtra("duration", duration);  //发送总时间用于设置seekbar的时间
+                        sendIntent.putExtra("duration", duration);
                         sendBroadcast(sendIntent);
                     }
                     try {

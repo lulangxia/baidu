@@ -17,17 +17,18 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
-import lanou.baidu.main.MainActivity;
-import lanou.baidu.main.PlayService;
 import lanou.baidu.R;
 import lanou.baidu.base.BaseAty;
 import lanou.baidu.eventBus.NextorLast;
 import lanou.baidu.eventBus.PlayMode;
+import lanou.baidu.main.MainActivity;
+import lanou.baidu.main.PlayService;
 import lanou.baidu.testFragment;
 
 public class PlayActivity extends BaseAty {
@@ -105,6 +106,7 @@ public class PlayActivity extends BaseAty {
         playerAdapter.setFragmentList(fragments);
         vp.setAdapter(playerAdapter);
         vp.setCurrentItem(1);
+        vp.setOffscreenPageLimit(2);
         nol = new NextorLast();
         next = nol.Next();
         last = nol.Last();
@@ -203,16 +205,20 @@ public class PlayActivity extends BaseAty {
                     mode.setImageResource(R.mipmap.bt_list_button_roundplay_normal);
 
                     EventBus.getDefault().post(playMode.XUNHUAN());
+                    Toast.makeText(PlayActivity.this, "循环播放", Toast.LENGTH_SHORT).show();
                 } else if (flag % 4 == 1) {
                     mode.setImageResource(R.mipmap.bt_list_random_normal);
+                    Toast.makeText(PlayActivity.this, "随机播放", Toast.LENGTH_SHORT).show();
 
                     EventBus.getDefault().post(playMode.SUIJI());
                 } else if (flag % 4 == 2) {
                     mode.setImageResource(R.mipmap.bt_list_roundsingle_normal);
+                    Toast.makeText(PlayActivity.this, "单曲循环", Toast.LENGTH_SHORT).show();
 
                     EventBus.getDefault().post(playMode.DANQU());
                 } else if (flag % 4 == 3) {
                     mode.setImageResource(R.mipmap.bt_list_order_normal);
+                    Toast.makeText(PlayActivity.this, "顺序播放", Toast.LENGTH_SHORT).show();
 
                     EventBus.getDefault().post(playMode.SHUNXU());
                 }
@@ -220,6 +226,13 @@ public class PlayActivity extends BaseAty {
                 shareEt.putInt("musicplaymode", flag);
                 shareEt.commit();
                 Log.d("PlayActivity11", "flag:" + flag);
+            }
+        });
+
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+        //        showPopupWindow();
             }
         });
 
@@ -284,36 +297,7 @@ public class PlayActivity extends BaseAty {
 
         }
 
-    }
-
-
-    private void showPopupWindow() {
-
-//        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.popup, null);
-//        RelativeLayout re = (RelativeLayout) contentView.findViewById(R.id.pop_pup);
-//        Button button = (Button) re.findViewById(R.id.btn_pop);
-//        Button button2 = (Button) re.findViewById(R.id.btn_serv);
-//        //View parent = LayoutInflater.from(getContext()).inflate(R.layout.smslayout, null);
-//        //View title = parent.findViewById(R.id.sms_title);
-//        final PopupWindow mPopWindow = new PopupWindow(contentView, RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT, true);
-//        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
-//        mPopWindow.setFocusable(true);
-//        mPopWindow.setOutsideTouchable(true);
-//        //mPopWindow.setContentView(contentView);
-//        //mPopWindow.showAtLocation(parent, Gravity.RIGHT, 0, -400);
-//        mPopWindow.showAsDropDown(inview);
-
-
-//        contentView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (mPopWindow.isShowing()) {
-//                    mPopWindow.dismiss();
-//                }
-//            }
-//        });
-    }
+       }
 
 
 }

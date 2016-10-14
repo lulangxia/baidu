@@ -68,12 +68,12 @@
         "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/res/layout/ptrrv_root_view.xml"
     },
     {
-        "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/release/layout/abc_screen_simple_overlay_action_mode.xml",
-        "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
         "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/release/layout/abc_activity_chooser_view.xml",
         "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/layout/abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/release/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
     },
     {
         "merged": "/Users/dllo/Desktop/WorkSpaceAn/baidu/PullToRefreshRecyclerView/build/intermediates/res/merged/release/layout/abc_list_menu_item_icon.xml",

@@ -22,4 +22,16 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+
+
+
+    <style name="animationup">
+        <item name="android:windowEnterAnimation">@anim/popin</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/popout</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
+
+
 </resources>

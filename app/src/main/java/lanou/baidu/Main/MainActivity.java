@@ -20,11 +20,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
@@ -41,7 +45,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import lanou.baidu.R;
@@ -124,8 +127,6 @@ public class MainActivity extends BaseAty {
     public void getMusicBean(MyMusicBean myMusicBean) {
         this.myMusicBean = myMusicBean;
         position = myMusicBean.getPosition();
-
-
         playSong();
     }
 
@@ -170,19 +171,19 @@ public class MainActivity extends BaseAty {
                 break;
             case 701:
                 playmode = 0;
-                spET.putInt("mplaymode",playmode);
+                spET.putInt("mplaymode", playmode);
                 break;
             case 702:
                 playmode = 702;
-                spET.putInt("mplaymode",playmode);
+                spET.putInt("mplaymode", playmode);
                 break;
             case 703:
                 playmode = 703;
-                spET.putInt("mplaymode",playmode);
+                spET.putInt("mplaymode", playmode);
                 break;
             case 704:
                 playmode = 704;
-                spET.putInt("mplaymode",playmode);
+                spET.putInt("mplaymode", playmode);
                 break;
         }
         spET.commit();
@@ -281,6 +282,14 @@ public class MainActivity extends BaseAty {
         });
 
 
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupWindow();
+            }
+        });
+
+
     }
 
     @Override
@@ -329,16 +338,6 @@ public class MainActivity extends BaseAty {
         }
     }
 
-
-    public static int getposition(String songid, List<String> songlist) {
-        int position = 0;
-        for (int i = 0; i < songlist.size(); i++) {
-            if (songid == songlist.get(i)) {
-                position = i;
-            }
-        }
-        return position;
-    }
 
     public void playSong() {
 
@@ -435,7 +434,7 @@ public class MainActivity extends BaseAty {
         if (myMusicBean == null) {
             return;
         }
-        int newplaymode = sp.getInt("mplaymode",0);
+        int newplaymode = sp.getInt("mplaymode", 0);
         switch (newplaymode) {
             case URLVlaues.XUNHUAN:
                 if (position == myMusicBean.getMusicBeen().size() - 1) {
@@ -445,7 +444,7 @@ public class MainActivity extends BaseAty {
                 }
                 break;
             case URLVlaues.SUIJI:
-                    position = new Random().nextInt(myMusicBean.getMusicBeen().size() - 1);
+                position = new Random().nextInt(myMusicBean.getMusicBeen().size() - 1);
                 break;
             case URLVlaues.DANQU:
 
@@ -483,7 +482,7 @@ public class MainActivity extends BaseAty {
                 break;
             case URLVlaues.SUIJI:
 
-                    position = new Random().nextInt(myMusicBean.getMusicBeen().size() - 1);
+                position = new Random().nextInt(myMusicBean.getMusicBeen().size() - 1);
 
                 break;
             case URLVlaues.DANQU:
@@ -529,5 +528,57 @@ public class MainActivity extends BaseAty {
         }
     }
 
+    private void showPopupWindow() {
 
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow, null);
+//        RelativeLayout re = (RelativeLayout) contentView.findViewById(R.id.pop_pup);
+//        Button button = (Button) re.findViewById(R.id.btn_pop);
+//        Button button2 = (Button) re.findViewById(R.id.btn_serv);
+//        //View parent = LayoutInflater.from(getContext()).inflate(R.layout.smslayout, null);
+//        //View title = parent.findViewById(R.id.sms_title);
+        final PopupWindow mPopWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
+//        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+
+        ListView listView = (ListView) contentView.findViewById(R.id.list_popwin);
+
+//        ArrayList<MusicBean> arraylist = new ArrayList<>();
+//        for (int i = 0; i < myMusicBean.getMusicBeen().size(); i++) {
+//            MusicBean musicBean = new MusicBean();
+//            musicBean.setSongName(myMusicBean.getMusicBeen().get(i).getSongName());
+//            musicBean.setSinger(myMusicBean.getMusicBeen().get(i).getSinger());
+//            musicBean.setSongid(myMusicBean.getMusicBeen().get(i).getSongid());
+//            arraylist.add(musicBean);
+//        }
+        //   mymusicBean.setMusicBeen(arraylist);
+        PopAdapter popadapter = new PopAdapter(this);
+        popadapter.setMyMusicBean(myMusicBean);
+        listView.setAdapter(popadapter);
+
+
+        ImageView ima = (ImageView) contentView.findViewById(R.id.back_popwin);
+
+        ima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
+            }
+
+        });
+
+        mPopWindow.setFocusable(true);
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setAnimationStyle(R.style.animationup);
+        mPopWindow.setContentView(contentView);
+
+//        //mPopWindow.showAtLocation(parent, Gravity.RIGHT, 0, -400);
+        mPopWindow.showAtLocation(LayoutInflater.from(this).inflate(R.layout.activity_main, null), Gravity.BOTTOM, 0, 0);
+
+
+    }
 }
+
+
+

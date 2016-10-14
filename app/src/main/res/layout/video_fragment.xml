@@ -16,7 +16,7 @@
             android:background="#FAFAFA"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <ImageView
                 android:id="@+id/songlist_img"
