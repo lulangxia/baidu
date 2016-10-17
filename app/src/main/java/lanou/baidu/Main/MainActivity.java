@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,18 +51,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import lanou.baidu.R;
+import lanou.baidu.TestFragment;
 import lanou.baidu.album.AlbumFragment;
 import lanou.baidu.base.BaseAty;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.URLVlaues;
 import lanou.baidu.base.VolleySingleton;
-import lanou.baidu.eventbus.MusicBean;
-import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.bean.MusicBean;
+import lanou.baidu.bean.MyMusicBean;
+import lanou.baidu.bean.PlayBean;
 import lanou.baidu.eventbus.SendSongMessage;
-import lanou.baidu.musicmedia.PlayBean;
 import lanou.baidu.my.MyFragment;
 import lanou.baidu.playmusic.PlayActivity;
-import lanou.baidu.testFragment;
 
 public class MainActivity extends BaseAty {
 
@@ -237,8 +238,8 @@ public class MainActivity extends BaseAty {
         ArrayList<Fragment> arrayList = new ArrayList<>();
         arrayList.add(new MyFragment());
         arrayList.add(new AlbumFragment());
-        arrayList.add(new testFragment());
-        arrayList.add(new testFragment());
+        arrayList.add(new TestFragment());
+        arrayList.add(new TestFragment());
 
 
         MainAdapter mainadapter = new MainAdapter(getSupportFragmentManager());
@@ -357,7 +358,7 @@ public class MainActivity extends BaseAty {
             showNotification(musicbean.getSongName(), musicbean.getSinger(), musicbean.getImgurl());
             musicBinder.playMusic();
         } else {
-            if (myMusicBean.getMusicBeen() != null) {
+            if (myMusicBean.getMusicBeen() != null && myMusicBean.getMusicBeen().size() != 0) {
                 String url = URLVlaues.PLAY_FRONT + myMusicBean.getMusicBeen().get(position).getSongid() + URLVlaues.PLAY_BEHIND;
                 StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                     @Override
@@ -607,6 +608,33 @@ public class MainActivity extends BaseAty {
 
 
     }
+
+    private long clickTime = 0; //记录第一次点击的时间
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //当keyCode ==4 时监控到返回键
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        // clickTime 记录第一次点击的时间
+        if ((System.currentTimeMillis() - clickTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出应用",
+                    Toast.LENGTH_SHORT).show();
+            clickTime = System.currentTimeMillis();
+        } else {
+            //  Log.e(TAG, "exit application");
+            this.finish();
+//     System.exit(0);
+        }
+    }
+
+
 
 
 }

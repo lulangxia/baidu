@@ -17,6 +17,8 @@ public class DataHelpter extends SQLiteOpenHelper {
         db.execSQL("create table " + DBValues.TABLE_DOWNLOAD + "(id integer primary key autoincrement,"
                 + DBValues.TABLE_RECORD_SONGNAME + " text,"
                 + DBValues.TABLE_RECORD_SINGER + " text,"
+                + DBValues.TABLE_RECORD_SONGID + " text,"
+                + DBValues.TABLE_RECORD_DURATION + " integer,"
                 + DBValues.TABLE_RECORD_SONGURL + " text)");
 
     }

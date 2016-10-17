@@ -19,11 +19,12 @@ import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
 
+import lanou.baidu.bean.RecomBean;
 import lanou.baidu.musicmedia.MediaFragment;
 import lanou.baidu.R;
-import lanou.baidu.album.recommend.recommendbean.RecommainBean;
-import lanou.baidu.album.recommend.recommendbean.RecommainBeanSpare;
-import lanou.baidu.album.recommend.recommendbean.RecommendNewBean;
+import lanou.baidu.bean.recommendbean.RecommainBean;
+import lanou.baidu.bean.recommendbean.RecommainBeanSpare;
+import lanou.baidu.bean.recommendbean.RecommendNewBean;
 import lanou.baidu.album.recommend.recomsonadapter.ColumAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.DiyAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.HeadAdapter;

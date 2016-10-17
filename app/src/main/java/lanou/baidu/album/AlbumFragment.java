@@ -14,7 +14,7 @@ import lanou.baidu.album.recommend.RecommendFragment;
 import lanou.baidu.album.songlist.SongListFragment;
 import lanou.baidu.album.video.VideoFragment;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.testFragment;
+import lanou.baidu.TestFragment;
 
 /**
  * Created by dllo on 16/9/19.
@@ -47,7 +47,7 @@ public class AlbumFragment extends BaseFragment {
         arrayList.add(new SongListFragment());
         arrayList.add(new RankFragment());
         arrayList.add(new VideoFragment());
-        arrayList.add(new testFragment());
+        arrayList.add(new TestFragment());
 
         AlbumAdapter albumadapter = new AlbumAdapter(getChildFragmentManager());
         albumadapter.setArrayList(arrayList);

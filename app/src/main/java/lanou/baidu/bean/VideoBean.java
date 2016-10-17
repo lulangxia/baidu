@@ -1,4 +1,4 @@
-package lanou.baidu.album.video;
+package lanou.baidu.bean;
 
 import java.util.List;
 

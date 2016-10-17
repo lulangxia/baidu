@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.bean.DownLoadBean;
 
 /**
  * Created by dllo on 16/10/15.
@@ -30,28 +30,32 @@ public class DBTools {
         database.delete(DBValues.TABLE_DOWNLOAD, null, null);
     }
 
-    public void insertDB(MusicBean my) {
+    public void insertDB(DownLoadBean downLoadBean) {
         ContentValues values = new ContentValues();
-        values.put(DBValues.TABLE_RECORD_SONGNAME, my.getSongName());
-        values.put(DBValues.TABLE_RECORD_SINGER, my.getSinger());
-        values.put(DBValues.TABLE_RECORD_SONGURL, my.getMusicuri());
+        values.put(DBValues.TABLE_RECORD_SONGNAME, downLoadBean.getSong());
+        values.put(DBValues.TABLE_RECORD_SINGER, downLoadBean.getSinger());
+        values.put(DBValues.TABLE_RECORD_SONGURL, downLoadBean.getMusicuri());
+        values.put(DBValues.TABLE_RECORD_SONGID, downLoadBean.getSongid());
+        values.put(DBValues.TABLE_RECORD_DURATION, downLoadBean.getDuration());
         database.insert(DBValues.TABLE_DOWNLOAD, null, values);
 
     }
 
-    public ArrayList<MusicBean> queryALLDB() {
-        ArrayList<MusicBean> musicBeanArrayList = new ArrayList<>();
+    public ArrayList<DownLoadBean> queryALLDB() {
+        ArrayList<DownLoadBean> downLoadBeanArrayList = new ArrayList<>();
         cursor = database.query(DBValues.TABLE_DOWNLOAD, null, null, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                MusicBean musicBean = new MusicBean();
-                musicBean.setSongName(cursor.getString(cursor.getColumnIndex(DBValues.TABLE_RECORD_SONGNAME)));
-                musicBean.setSinger(cursor.getString(cursor.getColumnIndex(DBValues.TABLE_RECORD_SINGER)));
-                musicBean.setMusicuri(cursor.getString(cursor.getColumnIndex(DBValues.TABLE_RECORD_SONGURL)));
-                musicBeanArrayList.add(musicBean);
+                DownLoadBean downLoadBean = new DownLoadBean();
+                downLoadBean.setSong(cursor.getString(cursor.getColumnIndex(DBValues.TABLE_RECORD_SONGNAME)));
+                downLoadBean.setSinger(cursor.getString(cursor.getColumnIndex(DBValues.TABLE_RECORD_SINGER)));
+                downLoadBean.setMusicuri(cursor.getString(cursor.getColumnIndex(DBValues.TABLE_RECORD_SONGURL)));
+                downLoadBean.setSongid(cursor.getString(cursor.getColumnIndex(DBValues.TABLE_RECORD_SONGID)));
+                downLoadBean.setDuration(cursor.getInt(cursor.getColumnIndex(DBValues.TABLE_RECORD_DURATION)));
+                downLoadBeanArrayList.add(downLoadBean);
             }
         }
-        return musicBeanArrayList;
+        return downLoadBeanArrayList;
     }
 
 

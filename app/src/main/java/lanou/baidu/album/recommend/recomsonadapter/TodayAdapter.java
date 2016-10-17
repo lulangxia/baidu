@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import lanou.baidu.R;
-import lanou.baidu.album.recommend.recommendbean.RecommainBeanSpare;
+import lanou.baidu.bean.recommendbean.RecommainBeanSpare;
 import lanou.baidu.base.CircleImageView;
 import lanou.baidu.base.MyImageLoader;
 

@@ -11,6 +11,7 @@ import lanou.baidu.R;
 import lanou.baidu.album.AlbumFragment;
 import lanou.baidu.base.BaseFragment;
 import lanou.baidu.base.URLVlaues;
+import lanou.baidu.bean.RecomBean;
 
 /**
  * Created by dllo on 16/9/19.

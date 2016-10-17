@@ -1,4 +1,4 @@
-package lanou.baidu.rankplayer;
+package lanou.baidu.bean;
 
 import java.util.List;
 

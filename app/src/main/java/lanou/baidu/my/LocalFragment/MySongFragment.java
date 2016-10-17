@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.eventbus.MusicBean;
-import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.bean.MusicBean;
+import lanou.baidu.bean.MyMusicBean;
 
 /**
  * Created by dllo on 16/10/13.
@@ -79,7 +80,9 @@ public class MySongFragment extends BaseFragment {
             listView.setAdapter(myMuAdapter);
         }
         cursor.close();
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.footview, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.media_foot, null);
+        TextView textView = (TextView) view.findViewById(R.id.num_song);
+        textView.setText("共" + myMusicBean.getMusicBeen().size() + "首歌曲");
         listView.addFooterView(view);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

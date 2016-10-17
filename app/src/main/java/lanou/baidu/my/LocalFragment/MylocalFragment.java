@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
 import lanou.baidu.main.MainActivity;
-import lanou.baidu.testFragment;
+import lanou.baidu.TestFragment;
 
 /**
  * Created by dllo on 16/10/12.
@@ -33,9 +33,9 @@ public class MylocalFragment extends BaseFragment {
         tabLayout = bindView(R.id.tab_mylocal);
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new MySongFragment());
-        fragments.add(new testFragment());
-        fragments.add(new testFragment());
-        fragments.add(new testFragment());
+        fragments.add(new TestFragment());
+        fragments.add(new TestFragment());
+        fragments.add(new TestFragment());
         MyLoAdapter myLoAdapter = new MyLoAdapter(getChildFragmentManager(), getContext());
         myLoAdapter.setArrayList(fragments);
         viewPager.setAdapter(myLoAdapter);

@@ -20,6 +20,7 @@ import lanou.baidu.base.BaseFragment;
 import lanou.baidu.base.GsonRequest;
 import lanou.baidu.base.URLVlaues;
 import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.bean.VideoBean;
 
 /**
  * Created by dllo on 16/9/28.

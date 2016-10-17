@@ -1,4 +1,4 @@
-package lanou.baidu.album.rank;
+package lanou.baidu.bean;
 
 import com.google.gson.annotations.SerializedName;
 

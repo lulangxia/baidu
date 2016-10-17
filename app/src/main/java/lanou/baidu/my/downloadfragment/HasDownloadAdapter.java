@@ -1,4 +1,4 @@
-package lanou.baidu.my.localfragment;
+package lanou.baidu.my.downloadfragment;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,12 +12,12 @@ import lanou.baidu.R;
 import lanou.baidu.bean.MyMusicBean;
 
 /**
- * Created by dllo on 16/10/13.
+ * Created by dllo on 16/10/17.
  */
-public class MyMyAdapter extends BaseAdapter {
+public class HasDownloadAdapter extends BaseAdapter {
     Context mContext;
 
-    public MyMyAdapter(Context mContext) {
+    public HasDownloadAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -30,7 +30,7 @@ public class MyMyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return myMusicBean.getMusicBeen().size();
+        return myMusicBean == null ? 0 : myMusicBean.getMusicBeen().size();
     }
 
     @Override
@@ -63,6 +63,7 @@ public class MyMyAdapter extends BaseAdapter {
 
     class MyViewHolder {
         TextView song, singer;
+
         public MyViewHolder(View convertView) {
             song = (TextView) convertView.findViewById(R.id.song_mylocal);
             singer = (TextView) convertView.findViewById(R.id.singer_mylocal);

@@ -58,6 +58,10 @@ public class PlayThirdFragment extends BaseFragment {
 
     @Override
     protected int setLayout() {
+        service = new Intent(getContext(), PlayService.class);
+        connection = new PlayConnection();
+        getContext().startService(service);
+        getContext().bindService(service, connection, getContext().BIND_AUTO_CREATE);
         return R.layout.playthridfragment;
     }
 
@@ -71,11 +75,6 @@ public class PlayThirdFragment extends BaseFragment {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
-        service = new Intent(getContext(), PlayService.class);
-        connection = new PlayConnection();
-        getContext().startService(service);
-        getContext().bindService(service, connection, getContext().BIND_AUTO_CREATE);
 
 
         mReceiver = new MyBroadcastReceiver();
@@ -143,7 +142,7 @@ public class PlayThirdFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
+        getContext().unbindService(connection);
 
 
     }
@@ -153,7 +152,7 @@ public class PlayThirdFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         getContext().unregisterReceiver(mReceiver);
-        getContext().unbindService(connection);
+
 
     }
 
@@ -239,7 +238,7 @@ public class PlayThirdFragment extends BaseFragment {
                 Message msg = new Message();
                 msg.what = 102;
                 msg.obj = result;
-                if(msg!=null) {
+                if (msg != null) {
                     handler.sendMessage(msg);
                 }
             }

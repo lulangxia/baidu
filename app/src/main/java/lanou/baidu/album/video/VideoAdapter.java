@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.bean.VideoBean;
 
 /**
  * Created by dllo on 16/9/28.
@@ -20,7 +21,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
     Context context;
     ArrayList<VideoBean> arrayList;
     boolean down = false;
-
     VideoBean videoBean;
 
 

@@ -19,10 +19,10 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.bean.MusicBean;
 import lanou.baidu.eventbus.NextorLast;
 import lanou.baidu.eventbus.SendSongMessage;
-import lanou.baidu.musicmedia.PlayBean;
+import lanou.baidu.bean.PlayBean;
 import lanou.baidu.base.PlayerSingleton;
 
 
@@ -131,6 +131,7 @@ public class PlayService extends Service {
         getlrcsp = sp.getString("lrc", null);
         gettimesp = sp.getInt("time", 0);
         getmusicurlsp = sp.getString("music", null);
+
 
 
         if (mMediaPlayer == null) {

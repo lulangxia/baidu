@@ -16,6 +16,7 @@ import lanou.baidu.base.BaseFragment;
 import lanou.baidu.base.GsonRequest;
 import lanou.baidu.base.URLVlaues;
 import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.bean.RankBean;
 import lanou.baidu.main.MainActivity;
 import lanou.baidu.rankplayer.RankPlayFragment;
 

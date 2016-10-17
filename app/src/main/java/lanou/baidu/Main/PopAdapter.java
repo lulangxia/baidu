@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import lanou.baidu.R;
-import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.bean.MyMusicBean;
 
 /**
  * Created by dllo on 16/10/14.

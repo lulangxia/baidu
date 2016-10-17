@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.bean.VideoBean;
 
 /**
  * Created by dllo on 16/10/9.

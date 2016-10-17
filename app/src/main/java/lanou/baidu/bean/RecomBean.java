@@ -1,4 +1,4 @@
-package lanou.baidu.album.recommend;
+package lanou.baidu.bean;
 
 /**
  * Created by dllo on 16/9/20.

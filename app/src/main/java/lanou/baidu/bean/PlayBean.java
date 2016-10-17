@@ -1,4 +1,4 @@
-package lanou.baidu.musicmedia;
+package lanou.baidu.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by dllo on 16/10/8.
  */
-public class PlayBean {
+public class PlayBean implements Parcelable {
 
     /**
      * special_type : 0
@@ -67,6 +67,23 @@ public class PlayBean {
 
     private BitrateBean bitrate;
 
+    public PlayBean(Parcel in) {
+        songinfo = in.readParcelable(SonginfoBean.class.getClassLoader());
+        error_code = in.readInt();
+    }
+
+    public static final Creator<PlayBean> CREATOR = new Creator<PlayBean>() {
+        @Override
+        public PlayBean createFromParcel(Parcel in) {
+            return new PlayBean(in);
+        }
+
+        @Override
+        public PlayBean[] newArray(int size) {
+            return new PlayBean[size];
+        }
+    };
+
     public SonginfoBean getSonginfo() {
         return songinfo;
     }
@@ -89,6 +106,17 @@ public class PlayBean {
 
     public void setBitrate(BitrateBean bitrate) {
         this.bitrate = bitrate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(songinfo, flags);
+        dest.writeInt(error_code);
     }
 
     public static class SonginfoBean implements Parcelable{
@@ -127,7 +155,10 @@ public class PlayBean {
         private String resource_type_ext;
         private String ting_uid;
 
-        protected SonginfoBean(Parcel in) {
+        public SonginfoBean() {
+        }
+
+        public SonginfoBean(Parcel in) {
             special_type = in.readInt();
             pic_huge = in.readString();
             resource_type = in.readString();

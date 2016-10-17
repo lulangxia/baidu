@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.bean.HotSIngerBean;
 
 /**
  * Created by dllo on 16/9/26.

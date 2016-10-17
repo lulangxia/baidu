@@ -16,9 +16,12 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
+import lanou.baidu.bean.DownLoadBean;
+import lanou.baidu.bean.MusicBean;
+import lanou.baidu.bean.MyMusicBean;
+import lanou.baidu.database.DBTools;
 import lanou.baidu.main.MainActivity;
-import lanou.baidu.eventbus.MusicBean;
-import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.my.downloadfragment.DownloadFragment;
 import lanou.baidu.my.localfragment.MylocalFragment;
 
 /**
@@ -32,6 +35,9 @@ public class MyFragment extends BaseFragment {
     private ImageView imageView;
     private MyMusicBean myMusicBean;
     private ArrayList<MusicBean> arrayList;
+    private RelativeLayout mDownload;
+    private TextView mDownloadnum;
+    private DBTools mDbTools;
 
     @Override
     protected int setLayout() {
@@ -44,10 +50,18 @@ public class MyFragment extends BaseFragment {
         imageView = bindView(R.id.img_my_playlocal);
         mylocalMusic = bindView(R.id.relativeLayout_my_local);
         mylocalImage = bindView(R.id.img_my_localMusic);
+        mDownload = bindView(R.id.download_my);
+        mDownloadnum = bindView(R.id.num_download_my);
     }
 
     @Override
     protected void initData() {
+        mDbTools = new DBTools(getContext());
+        ArrayList<DownLoadBean> arrayList = mDbTools.queryALLDB();
+        if (arrayList != null) {
+            mDownloadnum.setText(arrayList.size() + "首");
+        }
+
         findSong();
         if (myMusicBean.getMusicBeen() != null) {
             textView.setText(myMusicBean.getMusicBeen().size() + "首");
@@ -65,6 +79,13 @@ public class MyFragment extends BaseFragment {
                 EventBus.getDefault().post(myMusicBean);
             }
         });
+        mDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.replacefrag(new DownloadFragment());
+            }
+        });
+
     }
 
     @Override
@@ -110,7 +131,7 @@ public class MyFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if (isVisibleToUser) {
             findSong();
             if (myMusicBean.getMusicBeen() != null) {
                 textView.setText(myMusicBean.getMusicBeen().size() + "首");

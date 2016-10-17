@@ -1,4 +1,4 @@
-package lanou.baidu.musicmedia;
+package lanou.baidu.bean;
 
 import java.util.List;
 

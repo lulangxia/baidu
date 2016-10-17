@@ -30,14 +30,16 @@ import java.io.File;
 import java.util.ArrayList;
 
 import lanou.baidu.R;
+import lanou.baidu.TestFragment;
 import lanou.baidu.base.BaseAty;
 import lanou.baidu.base.MyApp;
+import lanou.baidu.bean.DownLoadBean;
+import lanou.baidu.bean.PlayBean;
+import lanou.baidu.database.DBTools;
 import lanou.baidu.eventbus.NextorLast;
 import lanou.baidu.eventbus.PlayMode;
 import lanou.baidu.main.MainActivity;
 import lanou.baidu.main.PlayService;
-import lanou.baidu.musicmedia.PlayBean;
-import lanou.baidu.testFragment;
 
 public class PlayActivity extends BaseAty {
 
@@ -67,6 +69,7 @@ public class PlayActivity extends BaseAty {
     private ImageView download;
 
     private PlayBean playBean;
+    private DBTools mDBTools;
 
 
     @Override
@@ -92,8 +95,16 @@ public class PlayActivity extends BaseAty {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void sentText(PlayBean playbean) {
+        this.playBean = playbean;
+        Log.d("PlayActivity", "aaa");
+    }
+
     @Override
     protected void initData() {
+        mDBTools = new DBTools(this);
+
         EventBus.getDefault().register(this);
         sharedPreferences = getSharedPreferences("playmode", MODE_PRIVATE);
         shareEt = sharedPreferences.edit();
@@ -113,9 +124,9 @@ public class PlayActivity extends BaseAty {
         }
 
 
-        PlayerAdapter playerAdapter = new PlayerAdapter(getSupportFragmentManager(), this);
+        final PlayerAdapter playerAdapter = new PlayerAdapter(getSupportFragmentManager(), this);
         final ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new testFragment());
+        fragments.add(new TestFragment());
         fragments.add(new PlayMainFragment());
         fragments.add(new PlayThirdFragment());
 
@@ -133,10 +144,11 @@ public class PlayActivity extends BaseAty {
         int time = intent1.getIntExtra("time", 0);
         playtime.setText(changetime(time / 1000));
 
+
         String positionnow = sharedPreferences.getString("nowtime", "0:00");
         playing.setText(positionnow);
 
-        boolean playing = intent1.getBooleanExtra("playorpause", false);
+        final boolean playing = intent1.getBooleanExtra("playorpause", false);
         playorpause.setChecked(!playing);
 
 
@@ -148,18 +160,46 @@ public class PlayActivity extends BaseAty {
         startService(playservice);
         this.bindService(playservice, connection, this.BIND_AUTO_CREATE);
 
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (playBean != null) {
-                    downloadSong(playBean);
+                ArrayList<DownLoadBean> downLoadBeanArrayList = mDBTools.queryALLDB();
+
+                if (playBean != null && playBean.getBitrate() != null && playBean.getBitrate().getFile_link() != null) {
+                    DownloadManager downloadManager = (DownloadManager) MyApp.getMcontext().getSystemService(Context.DOWNLOAD_SERVICE);
+                    //Log.d("Tools", playBean.getBitrate().getFile_link());
+                    for (int i = 0; i <downLoadBeanArrayList.size() ; i++) {
+                        Log.d("PlayActivity", "aaasscas");
+                        Log.d("PlayActivity", playBean.getSonginfo().getSong_id());
+                        Log.d("PlayActivity", downLoadBeanArrayList.get(i).getSongid());
+
+                        if(playBean.getSonginfo().getSong_id().equals(downLoadBeanArrayList.get(i).getSongid())){
+                            Log.d("PlayActivity", "aaasscasdasdas");
+                            Toast.makeText(PlayActivity.this, "该歌曲已下载", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    Log.d("PlayActivity", "aaaddd");
+                    Uri mDownloadUri = Uri.parse(playBean.getBitrate().getFile_link());
+                    DownloadManager.Request request = new DownloadManager.Request(mDownloadUri);
+                    File folder = new File("/sdcard/AAAAAAAA");
+                    if (!(folder.exists() && folder.isDirectory())) {
+                        folder.mkdirs();
+                    }
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,
+                            playBean.getSonginfo().getTitle() + "-" + playBean.getSonginfo().getAuthor() + ".mp3");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                    long downloadId = downloadManager.enqueue(request);
+                    DownLoadBean downLoadBean = new DownLoadBean();
+                    downLoadBean.setId(downloadId);
+                    downLoadBean.setSinger(playBean.getSonginfo().getAuthor());
+                    downLoadBean.setSong(playBean.getSonginfo().getTitle());
+                    downLoadBean.setMusicuri(playBean.getBitrate().getFile_link());
+                    downLoadBean.setSongid(playBean.getSonginfo().getSong_id());
+                    downLoadBean.setDuration(playBean.getBitrate().getFile_duration()*1000);
+                    mDBTools.insertDB(downLoadBean);
                 }
             }
         });
@@ -334,29 +374,7 @@ public class PlayActivity extends BaseAty {
 
 
 
-    public static void downloadSong(PlayBean playBean) {
-        if (playBean != null && playBean.getBitrate() != null && playBean.getBitrate().getFile_link() != null) {
-            DownloadManager downloadManager = (DownloadManager) MyApp.getMcontext().getSystemService(Context.DOWNLOAD_SERVICE);
-            Log.d("Tools", playBean.getBitrate().getFile_link());
-            Uri mDownloadUri = Uri.parse(playBean.getBitrate().getFile_link());
-            DownloadManager.Request request = new DownloadManager.Request(mDownloadUri);
-//            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-            File folder = new File("/sdcard/AAAAAAAA");
-            if (!(folder.exists() && folder.isDirectory())) {
-                folder.mkdirs();
-            }
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,
-                    playBean.getSonginfo().getTitle() + "-" + playBean.getSonginfo().getAuthor() + ".mp3");
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-           long downloadId = downloadManager.enqueue(request);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void sentText(PlayBean playbean) {
-        this.playBean = playbean;
-    }
-
-
 }
+
+
+

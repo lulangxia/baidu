@@ -30,8 +30,9 @@ import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
 import lanou.baidu.base.GsonRequest;
 import lanou.baidu.base.VolleySingleton;
-import lanou.baidu.eventbus.MusicBean;
-import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.bean.MusicBean;
+import lanou.baidu.bean.MyMusicBean;
+import lanou.baidu.bean.RankPlayBean;
 import lanou.baidu.main.MainActivity;
 import lanou.baidu.musicmedia.OnRecyclerItemClickListener;
 

@@ -17,14 +17,16 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.GsonRequest;
+import lanou.baidu.bean.SongLIstHotBean;
+import lanou.baidu.bean.SongListOldBean;
 import lanou.baidu.main.MainActivity;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.URLVlaues;
 import lanou.baidu.base.VolleySingleton;
-import lanou.baidu.eventbus.MusicBean;
-import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.bean.MusicBean;
+import lanou.baidu.bean.MyMusicBean;
 import lanou.baidu.musicmedia.MediaFragment;
-import lanou.baidu.musicmedia.MediaLIstBean;
+import lanou.baidu.bean.MediaLIstBean;
 
 /**
  * Created by dllo on 16/9/23.

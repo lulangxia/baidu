@@ -1,4 +1,4 @@
-package lanou.baidu.album.songlist;
+package lanou.baidu.bean;
 
 import java.util.List;
 
