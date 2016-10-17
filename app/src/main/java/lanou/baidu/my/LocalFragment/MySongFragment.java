@@ -1,4 +1,4 @@
-package lanou.baidu.my;
+package lanou.baidu.my.localfragment;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.eventBus.MusicBean;
-import lanou.baidu.eventBus.MyMusicBean;
+import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.eventbus.MyMusicBean;
 
 /**
  * Created by dllo on 16/10/13.

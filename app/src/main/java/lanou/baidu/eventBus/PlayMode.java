@@ -1,4 +1,4 @@
-package lanou.baidu.eventBus;
+package lanou.baidu.eventbus;
 
 /**
  * Created by dllo on 16/10/14.

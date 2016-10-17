@@ -19,11 +19,11 @@ import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
 
-import lanou.baidu.musicMedia.MediaFragment;
+import lanou.baidu.musicmedia.MediaFragment;
 import lanou.baidu.R;
-import lanou.baidu.album.recommend.recommendBean.RecommainBean;
-import lanou.baidu.album.recommend.recommendBean.RecommainBeanSpare;
-import lanou.baidu.album.recommend.recommendBean.RecommendNewBean;
+import lanou.baidu.album.recommend.recommendbean.RecommainBean;
+import lanou.baidu.album.recommend.recommendbean.RecommainBeanSpare;
+import lanou.baidu.album.recommend.recommendbean.RecommendNewBean;
 import lanou.baidu.album.recommend.recomsonadapter.ColumAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.DiyAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.HeadAdapter;
@@ -40,7 +40,7 @@ import lanou.baidu.base.MyGridView;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.URLVlaues;
 import lanou.baidu.base.VolleySingleton;
-import lanou.baidu.replaceFragment.SingerFragment;
+import lanou.baidu.replacefragment.SingerFragment;
 
 /**
  * Created by dllo on 16/9/20.

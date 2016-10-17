@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -18,11 +19,11 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import lanou.baidu.eventBus.MusicBean;
-import lanou.baidu.eventBus.NextorLast;
-import lanou.baidu.eventBus.SendSongMessage;
-import lanou.baidu.musicMedia.PlayBean;
-import lanou.baidu.musicMedia.PlayerSingleton;
+import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.eventbus.NextorLast;
+import lanou.baidu.eventbus.SendSongMessage;
+import lanou.baidu.musicmedia.PlayBean;
+import lanou.baidu.base.PlayerSingleton;
 
 
 /**
@@ -45,10 +46,33 @@ public class PlayService extends Service {
     private PlayBean playBean;
     private MusicBean musicBean;
 
+
+    private SharedPreferences sp;
+    private SharedPreferences.Editor spET;
+    private boolean flag;
+    private String getsongsp;
+    private String getsingersp;
+    private String geturlsp;
+    private String getlrcsp;
+    private int gettimesp;
+    private String getsong;
+    private String getsinger;
+    private String geturl;
+    private String getlrc;
+    private int gettime;
+    private int getposition;
+    private String getmusicurl;
+    private String getmusicurlsp;
+
     @Override
     public void onCreate() {
-        sendIntent = new Intent("jindu");
+
         super.onCreate();
+        sendIntent = new Intent("jindu");
+
+        flag = true;
+        sp = getSharedPreferences("shared", MODE_PRIVATE);
+        spET = sp.edit();
 
         mMediaPlayer = PlayerSingleton.getInstance().getmMediaPlayer();
         //设置歌曲播放完事之后的监听
@@ -82,6 +106,33 @@ public class PlayService extends Service {
 
 
     public void play(MusicBean musicBean) {
+
+
+        if (musicBean != null) {
+            getsong = musicBean.getSongName();
+            getsinger = musicBean.getSinger();
+            geturl = musicBean.getImgurl();
+            getlrc = musicBean.getLrcurl();
+            gettime = mMediaPlayer.getDuration();
+            getmusicurl = musicBean.getMusicuri();
+            getposition = mMediaPlayer.getCurrentPosition();
+
+            spET.putString("song", getsong);
+            spET.putString("singer", getsinger);
+            spET.putString("img", geturl);
+            spET.putString("lrc", getlrc);
+            spET.putInt("time", gettime);
+            spET.putString("music", getmusicurl);
+            spET.commit();
+        }
+        getsongsp = sp.getString("song", null);
+        getsingersp = sp.getString("singer", null);
+        geturlsp = sp.getString("img", null);
+        getlrcsp = sp.getString("lrc", null);
+        gettimesp = sp.getInt("time", 0);
+        getmusicurlsp = sp.getString("music", null);
+
+
         if (mMediaPlayer == null) {
             return;
         } else if (mMediaPlayer.isPlaying()) {
@@ -90,16 +141,23 @@ public class PlayService extends Service {
         }
         mMediaPlayer.reset();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-        try {
-            mMediaPlayer.setDataSource(musicBean.getMusicuri());
-            mMediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (getmusicurlsp == null) {
+            return;
+        } else {
+            try {
+                mMediaPlayer.setDataSource(getmusicurlsp);
+                mMediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        SendSongMessage event = new SendSongMessage(musicBean.getSongName(), musicBean.getSinger(), musicBean.getImgurl(),
-                musicBean.getLrcurl(),mMediaPlayer.getDuration(),mMediaPlayer.getCurrentPosition());
+        SendSongMessage event = new SendSongMessage(getsongsp,
+                getsingersp,
+                geturlsp,
+                getlrcsp,
+                gettimesp,
+                mMediaPlayer.getCurrentPosition(),
+                getmusicurlsp);
         EventBus.getDefault().post(event);
 
 
@@ -184,8 +242,13 @@ public class PlayService extends Service {
 
 
         public void restartMusic() {
-            if (!mMediaPlayer.isPlaying()) {
-                mMediaPlayer.start();
+            if (flag) {
+                playMusic();
+                flag = false;
+            } else {
+                if (!mMediaPlayer.isPlaying()) {
+                    mMediaPlayer.start();
+                }
             }
         }
 

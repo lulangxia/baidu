@@ -28,7 +28,7 @@ import java.util.TimerTask;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.eventBus.SendSongMessage;
+import lanou.baidu.eventbus.SendSongMessage;
 import lanou.baidu.main.PlayService;
 
 /**
@@ -174,7 +174,7 @@ public class PlayThirdFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void sentText(SendSongMessage sendSongMessage) {
         getlrc1 = sendSongMessage.getLyrics();
-        Log.d("PlayThirdFragment", getlrc1);
+//        Log.d("PlayThirdFragment", getlrc1);
         if (getlrc1 != null) {
             getlrc(getlrc1);
             handler = new Handler(new Handler.Callback() {

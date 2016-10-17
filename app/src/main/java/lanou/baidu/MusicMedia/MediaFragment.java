@@ -1,4 +1,4 @@
-package lanou.baidu.musicMedia;
+package lanou.baidu.musicmedia;
 
 
 import android.graphics.Bitmap;
@@ -39,8 +39,8 @@ import lanou.baidu.base.GsonRequest;
 import lanou.baidu.main.MainActivity;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.VolleySingleton;
-import lanou.baidu.eventBus.MusicBean;
-import lanou.baidu.eventBus.MyMusicBean;
+import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.eventbus.MyMusicBean;
 
 public class MediaFragment extends BaseFragment {
 
@@ -144,7 +144,7 @@ public class MediaFragment extends BaseFragment {
                         myMusicBean = new MyMusicBean();
                         myMusicBean.setMusicBeen(arraylist);
 
-                        meidaListAdapter.setOnRecyclerItemClickListener(new MediaListAdapter.OnRecyclerItemClickListener() {
+                        meidaListAdapter.setOnRecyclerItemClickListener(new OnRecyclerItemClickListener() {
                             @Override
                             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                                 myMusicBean.setPosition(position - 1);
@@ -160,7 +160,7 @@ public class MediaFragment extends BaseFragment {
                                 //关闭sso授权
                                 oks.disableSSOWhenAuthorize();
 
-// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+                                // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
                                 //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
                                 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
                                 oks.setTitle(response.getTitle());
@@ -181,7 +181,7 @@ public class MediaFragment extends BaseFragment {
                                 // siteUrl是分享此内容的网站地址，仅在QQ空间使用
                                 oks.setSiteUrl(response.getUrl());
 
-// 启动分享GUI
+                                // 启动分享GUI
                                 oks.show(getContext());
                             }
                         });

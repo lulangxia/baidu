@@ -1,4 +1,4 @@
-package lanou.baidu.musicMedia;
+package lanou.baidu.musicmedia;
 
 import android.os.Parcel;
 import android.os.Parcelable;

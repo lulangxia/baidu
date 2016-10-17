@@ -96,11 +96,11 @@ public class LrcView extends View implements ILrcView {
     /**
      * 两行歌词之间的间距
      **/
-    private int mPaddingY = 10;
+    private int mPaddingY = 17;
     /**
      * 拖动歌词时，在当前高亮歌词下面的一条直线的起始位置
      **/
-    private int mSeekLinePaddingX = 0;
+    private int mSeekLinePaddingX = 10;
 
     /**
      * 拖动歌词的监听类，回调LrcViewListener类的onLrcSeeked方法
@@ -460,6 +460,8 @@ public class LrcView extends View implements ILrcView {
                     || (time > current.time && next == null)){
                 seekLrc(i, false);
                 return;
+            }else{
+                seekLrc(0,false);
             }
         }
     }

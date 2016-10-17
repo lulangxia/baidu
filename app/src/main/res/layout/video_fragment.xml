@@ -69,19 +69,17 @@
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <com.handmark.pulltorefresh.library.PullToRefreshGridView
+    <com.lhh.ptrrv.library.PullToRefreshRecyclerView
         android:id="@+id/video_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FAFAFA"
-        android:horizontalSpacing="5dp"
         android:numColumns="2"
         android:scrollbars="none"
-        android:verticalSpacing="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+    </com.lhh.ptrrv.library.PullToRefreshRecyclerView>
 </android.support.design.widget.CoordinatorLayout>
 

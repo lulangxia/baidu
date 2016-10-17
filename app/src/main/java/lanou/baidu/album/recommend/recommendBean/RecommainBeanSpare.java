@@ -1,4 +1,4 @@
-package lanou.baidu.album.recommend.recommendBean;
+package lanou.baidu.album.recommend.recommendbean;
 
 import com.google.gson.annotations.SerializedName;
 

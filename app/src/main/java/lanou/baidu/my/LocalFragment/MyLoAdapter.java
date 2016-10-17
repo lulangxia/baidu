@@ -1,4 +1,4 @@
-package lanou.baidu.my;
+package lanou.baidu.my.localfragment;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

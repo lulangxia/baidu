@@ -1,4 +1,4 @@
-package lanou.baidu.eventBus;
+package lanou.baidu.eventbus;
 
 /**
  * Created by dllo on 16/10/8.
@@ -36,13 +36,14 @@ public class SendSongMessage {
         this.lyrics = lyrics;
     }
 
-    public SendSongMessage(String song, String singer, String imgurl, String lyrics, int time, int position) {
+    public SendSongMessage(String song, String singer, String imgurl, String lyrics, int time, int position,String playurl) {
         this.song = song;
         this.singer = singer;
         this.imgurl = imgurl;
         this.lyrics = lyrics;
         this.time = time;
         this.position = position;
+        this.playurl = playurl;
     }
 
     public SendSongMessage(String song, String singer, String imgurl, String lyrics, int time) {

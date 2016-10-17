@@ -1,4 +1,4 @@
-package lanou.baidu.musicMedia;
+package lanou.baidu.musicmedia;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -162,8 +162,6 @@ public class MediaListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public interface OnRecyclerItemClickListener {
-        void onItemClick(View view, RecyclerView.ViewHolder holder, int position);
-    }
+
 
 }

@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -53,10 +55,10 @@ import lanou.baidu.base.BaseAty;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.URLVlaues;
 import lanou.baidu.base.VolleySingleton;
-import lanou.baidu.eventBus.MusicBean;
-import lanou.baidu.eventBus.MyMusicBean;
-import lanou.baidu.eventBus.SendSongMessage;
-import lanou.baidu.musicMedia.PlayBean;
+import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.eventbus.SendSongMessage;
+import lanou.baidu.musicmedia.PlayBean;
 import lanou.baidu.my.MyFragment;
 import lanou.baidu.playmusic.PlayActivity;
 import lanou.baidu.testFragment;
@@ -99,6 +101,10 @@ public class MainActivity extends BaseAty {
     private int playmode;
 
     private boolean Local = false;
+    private MusicBean musicbean;
+    private ListView listView;
+    private PopAdapter popadapter;
+    private PopupWindow mPopWindow;
 
 
     @Override
@@ -127,6 +133,7 @@ public class MainActivity extends BaseAty {
     public void getMusicBean(MyMusicBean myMusicBean) {
         this.myMusicBean = myMusicBean;
         position = myMusicBean.getPosition();
+
         playSong();
     }
 
@@ -245,11 +252,13 @@ public class MainActivity extends BaseAty {
         playrpause.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isChecked = musicBinder.isPlaying();
-                if (isChecked == false) {
-                    musicBinder.restartMusic();
-                } else {
-                    musicBinder.stopPlay();
+                if (musicBinder != null) {
+                    isChecked = musicBinder.isPlaying();
+                    if (isChecked == false) {
+                        musicBinder.restartMusic();
+                    } else {
+                        musicBinder.stopPlay();
+                    }
                 }
             }
         });
@@ -342,29 +351,28 @@ public class MainActivity extends BaseAty {
     public void playSong() {
 
         if (myMusicBean.isLOCAL()) {
-            MusicBean musicbean = new MusicBean();
+            musicbean = new MusicBean();
             musicbean = myMusicBean.getMusicBeen().get(position);
             musicBinder.setMusicBean(musicbean);
             showNotification(musicbean.getSongName(), musicbean.getSinger(), musicbean.getImgurl());
             musicBinder.playMusic();
         } else {
-            String url = URLVlaues.PLAY_FRONT + myMusicBean.getMusicBeen().get(position).getSongid() + URLVlaues.PLAY_BEHIND;
-
-            if (url != null) {
+            if (myMusicBean.getMusicBeen() != null) {
+                String url = URLVlaues.PLAY_FRONT + myMusicBean.getMusicBeen().get(position).getSongid() + URLVlaues.PLAY_BEHIND;
                 StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         String urlnew = response.substring(1, response.length() - 2);
-
                         Gson gson = new Gson();
                         PlayBean playBean = gson.fromJson(urlnew, PlayBean.class);
-                        MusicBean musicbean = new MusicBean();
+                        EventBus.getDefault().post(playBean);
+
+                        musicbean = new MusicBean();
                         musicbean.setSongName(playBean.getSonginfo().getTitle());
                         musicbean.setSinger(playBean.getSonginfo().getAuthor());
                         musicbean.setImgurl(playBean.getSonginfo().getPic_big());
                         musicbean.setLrcurl(playBean.getSonginfo().getLrclink());
                         musicbean.setMusicuri(playBean.getBitrate().getFile_link());
-
                         musicBinder.setMusicBean(musicbean);
                         showNotification(musicbean.getSongName(), musicbean.getSinger(), musicbean.getImgurl());
                         musicBinder.playMusic();
@@ -379,6 +387,7 @@ public class MainActivity extends BaseAty {
                 VolleySingleton.getInstance().addRequest(stringRequest);
             }
         }
+
     }
 
     private void showNotification(String song, String singer, final String url) {
@@ -451,6 +460,7 @@ public class MainActivity extends BaseAty {
                 break;
             default:
                 if (position == myMusicBean.getMusicBeen().size() - 1) {
+                    Toast.makeText(this, "当前已是最后一首歌曲", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     position++;
@@ -490,6 +500,7 @@ public class MainActivity extends BaseAty {
                 break;
             default:
                 if (position == 0) {
+                    Toast.makeText(this, "当前已是第一首歌曲", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     position--;
@@ -528,31 +539,49 @@ public class MainActivity extends BaseAty {
         }
     }
 
+
     private void showPopupWindow() {
 
         View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow, null);
-//        RelativeLayout re = (RelativeLayout) contentView.findViewById(R.id.pop_pup);
-//        Button button = (Button) re.findViewById(R.id.btn_pop);
-//        Button button2 = (Button) re.findViewById(R.id.btn_serv);
-//        //View parent = LayoutInflater.from(getContext()).inflate(R.layout.smslayout, null);
-//        //View title = parent.findViewById(R.id.sms_title);
-        final PopupWindow mPopWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
-//        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
 
-        ListView listView = (ListView) contentView.findViewById(R.id.list_popwin);
-
-//        ArrayList<MusicBean> arraylist = new ArrayList<>();
-//        for (int i = 0; i < myMusicBean.getMusicBeen().size(); i++) {
-//            MusicBean musicBean = new MusicBean();
-//            musicBean.setSongName(myMusicBean.getMusicBeen().get(i).getSongName());
-//            musicBean.setSinger(myMusicBean.getMusicBeen().get(i).getSinger());
-//            musicBean.setSongid(myMusicBean.getMusicBeen().get(i).getSongid());
-//            arraylist.add(musicBean);
-//        }
-        //   mymusicBean.setMusicBeen(arraylist);
-        PopAdapter popadapter = new PopAdapter(this);
+        mPopWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
+        listView = (ListView) contentView.findViewById(R.id.list_popwin);
+        popadapter = new PopAdapter(this);
         popadapter.setMyMusicBean(myMusicBean);
+        popadapter.setOndeleteItemListener(new OndeleteItemListener() {
+            @Override
+            public void deleteListener(int position) {
+
+                myMusicBean.getMusicBeen().remove(position);
+                popadapter.setMyMusicBean(myMusicBean);
+            }
+        });
         listView.setAdapter(popadapter);
+        TextView textView = (TextView) contentView.findViewById(R.id.deleteall_popwin);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myMusicBean = null;
+                popadapter.setMyMusicBean(myMusicBean);
+                mPopWindow.dismiss();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position1, long id) {
+                position = position1;
+//                TextView song = (TextView) view.findViewById(R.id.songname_popitem);
+//                TextView singer = (TextView) view.findViewById(R.id.singer_poptime);
+//                song.setTextColor(Color.BLUE);
+//                singer.setTextColor(Color.BLUE);
+//                ImageView imageView = (ImageView) view.findViewById(R.id.playanima_popitem);
+//                imageView.setVisibility(View.VISIBLE);
+//                AnimationDrawable drawable = (AnimationDrawable) imageView.getBackground();
+//                drawable.start();
+                playSong();
+            }
+        });
 
 
         ImageView ima = (ImageView) contentView.findViewById(R.id.back_popwin);
@@ -578,6 +607,8 @@ public class MainActivity extends BaseAty {
 
 
     }
+
+
 }
 
 

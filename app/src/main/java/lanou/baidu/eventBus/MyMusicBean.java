@@ -1,4 +1,4 @@
-package lanou.baidu.eventBus;
+package lanou.baidu.eventbus;
 
 import java.util.List;
 

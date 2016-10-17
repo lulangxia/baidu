@@ -21,6 +21,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
     ArrayList<VideoBean> arrayList;
     boolean down = false;
 
+    VideoBean videoBean;
+
+
+
     public void setDown(boolean down) {
         this.down = down;
     }
@@ -29,11 +33,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         this.context = context;
     }
 
-    public void setArrayList(ArrayList<VideoBean> arrayList1) {
+    public void setVideoBean(VideoBean videoBean1) {
         if (down) {
-            arrayList.addAll(arrayList1);
-        }else{
-            this.arrayList = arrayList1;
+            videoBean.getResult().getMv_list().addAll(videoBean1.getResult().getMv_list());
+        } else {
+            this.videoBean = videoBean1;
         }
         notifyDataSetChanged();
     }
@@ -47,14 +51,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
 
     @Override
     public void onBindViewHolder(VideoAdapter.VideoHolder holder, int position) {
-        MyImageLoader.myImageLoader(arrayList.get(0).getResult().getMv_list().get(position).getThumbnail2(), holder.imageView);
-        holder.song.setText(arrayList.get(0).getResult().getMv_list().get(position).getTitle());
-        holder.singer.setText(arrayList.get(0).getResult().getMv_list().get(position).getArtist());
+        MyImageLoader.myImageLoader(videoBean.getResult().getMv_list().get(position).getThumbnail2(), holder.imageView);
+        holder.song.setText(videoBean.getResult().getMv_list().get(position).getTitle());
+        holder.singer.setText(videoBean.getResult().getMv_list().get(position).getArtist());
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.get(0).getResult().getMv_list().size();
+        return videoBean.getResult().getMv_list().size();
     }
 
     public class VideoHolder extends RecyclerView.ViewHolder {

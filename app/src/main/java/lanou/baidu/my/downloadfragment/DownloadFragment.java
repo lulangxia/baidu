@@ -1,22 +1,20 @@
-package lanou.baidu.my;
+package lanou.baidu.my.downloadfragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.main.MainActivity;
 import lanou.baidu.testFragment;
 
 /**
- * Created by dllo on 16/10/12.
+ * Created by dllo on 16/10/17.
  */
-public class MylocalFragment extends BaseFragment {
+public class DownloadFragment extends BaseFragment{
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -24,34 +22,27 @@ public class MylocalFragment extends BaseFragment {
 
     @Override
     protected int setLayout() {
-        return R.layout.mylocalfragent;
+        return R.layout.downloadfragment;
     }
 
     @Override
     protected void initView() {
-        viewPager = bindView(R.id.vp_mylocal);
-        tabLayout = bindView(R.id.tab_mylocal);
+        viewPager = bindView(R.id.vp_download);
+        tabLayout = bindView(R.id.tab_download);
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new MySongFragment());
         fragments.add(new testFragment());
         fragments.add(new testFragment());
-        fragments.add(new testFragment());
-        MyLoAdapter myLoAdapter = new MyLoAdapter(getChildFragmentManager(), getContext());
-        myLoAdapter.setArrayList(fragments);
-        viewPager.setAdapter(myLoAdapter);
+
+        MyDownloadAdapter myDownloadAdapter = new MyDownloadAdapter(getChildFragmentManager(),getContext());
+//        myLoAdapter.setArrayList(fragments);
+//       viewPager.setAdapter(myLoAdapter);
         tabLayout.setupWithViewPager(viewPager);
         returnback = bindView(R.id.return_mylocalmusic);
+
     }
 
     @Override
     protected void initData() {
-        returnback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.retrnfrag(MylocalFragment.this);
-            }
-        });
-
 
     }
 }

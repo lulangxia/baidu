@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 import lanou.baidu.R;
-import lanou.baidu.album.recommend.recommendBean.RecommainBean;
-import lanou.baidu.album.recommend.recommendBean.RecommendNewBean;
+import lanou.baidu.album.recommend.recommendbean.RecommainBean;
+import lanou.baidu.album.recommend.recommendbean.RecommendNewBean;
 import lanou.baidu.base.MyImageLoader;
 
 /**

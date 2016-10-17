@@ -21,10 +21,10 @@ import lanou.baidu.main.MainActivity;
 import lanou.baidu.base.MyImageLoader;
 import lanou.baidu.base.URLVlaues;
 import lanou.baidu.base.VolleySingleton;
-import lanou.baidu.eventBus.MusicBean;
-import lanou.baidu.eventBus.MyMusicBean;
-import lanou.baidu.musicMedia.MediaFragment;
-import lanou.baidu.musicMedia.MediaLIstBean;
+import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.musicmedia.MediaFragment;
+import lanou.baidu.musicmedia.MediaLIstBean;
 
 /**
  * Created by dllo on 16/9/23.

@@ -1,4 +1,4 @@
-package lanou.baidu.my;
+package lanou.baidu.my.localfragment;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import lanou.baidu.R;
-import lanou.baidu.eventBus.MyMusicBean;
+import lanou.baidu.eventbus.MyMusicBean;
 
 /**
  * Created by dllo on 16/10/13.

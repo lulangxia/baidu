@@ -1,4 +1,4 @@
-package lanou.baidu.replaceFragment;
+package lanou.baidu.replacefragment;
 
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;

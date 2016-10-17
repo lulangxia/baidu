@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import lanou.baidu.R;
-import lanou.baidu.album.recommend.recommendBean.RecommendNewBean;
+import lanou.baidu.album.recommend.recommendbean.RecommendNewBean;
 import lanou.baidu.base.MyImageLoader;
 
 /**

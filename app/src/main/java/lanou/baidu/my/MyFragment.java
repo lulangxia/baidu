@@ -17,8 +17,9 @@ import java.util.ArrayList;
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
 import lanou.baidu.main.MainActivity;
-import lanou.baidu.eventBus.MusicBean;
-import lanou.baidu.eventBus.MyMusicBean;
+import lanou.baidu.eventbus.MusicBean;
+import lanou.baidu.eventbus.MyMusicBean;
+import lanou.baidu.my.localfragment.MylocalFragment;
 
 /**
  * Created by dllo on 16/9/30.
@@ -103,6 +104,17 @@ public class MyFragment extends BaseFragment {
             }
             myMusicBean.setMusicBeen(arrayList);
             myMusicBean.setLOCAL(true);
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            findSong();
+            if (myMusicBean.getMusicBeen() != null) {
+                textView.setText(myMusicBean.getMusicBeen().size() + "首");
+            }
         }
     }
 }

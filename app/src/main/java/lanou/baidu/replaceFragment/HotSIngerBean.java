@@ -1,4 +1,4 @@
-package lanou.baidu.replaceFragment;
+package lanou.baidu.replacefragment;
 
 import java.util.List;
 

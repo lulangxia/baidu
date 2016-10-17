@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:src="@mipmap/bt_sceneplay_collect_selected" />
+                android:src="@mipmap/bt_sceneplay_collect_press" />
 
             <ImageView
                 android:id="@+id/download_player"

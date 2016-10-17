@@ -189,6 +189,7 @@
                     android:background="@android:color/darker_gray" />
 
                 <RelativeLayout
+                    android:id="@+id/download_my"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"

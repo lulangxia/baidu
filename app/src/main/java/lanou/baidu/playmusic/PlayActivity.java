@@ -1,5 +1,6 @@
 package lanou.baidu.playmusic;
 
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -7,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -20,15 +23,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseAty;
-import lanou.baidu.eventBus.NextorLast;
-import lanou.baidu.eventBus.PlayMode;
+import lanou.baidu.base.MyApp;
+import lanou.baidu.eventbus.NextorLast;
+import lanou.baidu.eventbus.PlayMode;
 import lanou.baidu.main.MainActivity;
 import lanou.baidu.main.PlayService;
+import lanou.baidu.musicmedia.PlayBean;
 import lanou.baidu.testFragment;
 
 public class PlayActivity extends BaseAty {
@@ -55,6 +63,10 @@ public class PlayActivity extends BaseAty {
     private PlayMode playMode;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor shareEt;
+    private ImageView share;
+    private ImageView download;
+
+    private PlayBean playBean;
 
 
     @Override
@@ -75,10 +87,14 @@ public class PlayActivity extends BaseAty {
         mode = bindView(R.id.mode_player);
         more = bindView(R.id.moresong_player);
 
+        share = bindView(R.id.share_player);
+        download = bindView(R.id.download_player);
+
     }
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         sharedPreferences = getSharedPreferences("playmode", MODE_PRIVATE);
         shareEt = sharedPreferences.edit();
 
@@ -107,6 +123,7 @@ public class PlayActivity extends BaseAty {
         vp.setAdapter(playerAdapter);
         vp.setCurrentItem(1);
         vp.setOffscreenPageLimit(2);
+        vp.setPageTransformer(true, new ViwePagerAni());
         nol = new NextorLast();
         next = nol.Next();
         last = nol.Last();
@@ -129,8 +146,24 @@ public class PlayActivity extends BaseAty {
         playservice = new Intent(this, PlayService.class);
         connection = new PlayConnection();
         startService(playservice);
-
         this.bindService(playservice, connection, this.BIND_AUTO_CREATE);
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (playBean != null) {
+                    downloadSong(playBean);
+                }
+            }
+        });
+
 
         playorpause.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -196,7 +229,6 @@ public class PlayActivity extends BaseAty {
             }
         });
 
-
         playMode = new PlayMode();
         mode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +264,7 @@ public class PlayActivity extends BaseAty {
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        //        showPopupWindow();
+                //        showPopupWindow();
             }
         });
 
@@ -251,6 +283,7 @@ public class PlayActivity extends BaseAty {
         super.onDestroy();
         unregisterReceiver(myBroadcastReceiver);
         unbindService(connection);
+        EventBus.getDefault().unregister(this);
     }
 
     public static String changetime(int time) {
@@ -297,7 +330,33 @@ public class PlayActivity extends BaseAty {
 
         }
 
-       }
+    }
+
+
+
+    public static void downloadSong(PlayBean playBean) {
+        if (playBean != null && playBean.getBitrate() != null && playBean.getBitrate().getFile_link() != null) {
+            DownloadManager downloadManager = (DownloadManager) MyApp.getMcontext().getSystemService(Context.DOWNLOAD_SERVICE);
+            Log.d("Tools", playBean.getBitrate().getFile_link());
+            Uri mDownloadUri = Uri.parse(playBean.getBitrate().getFile_link());
+            DownloadManager.Request request = new DownloadManager.Request(mDownloadUri);
+//            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+            File folder = new File("/sdcard/AAAAAAAA");
+            if (!(folder.exists() && folder.isDirectory())) {
+                folder.mkdirs();
+            }
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC,
+                    playBean.getSonginfo().getTitle() + "-" + playBean.getSonginfo().getAuthor() + ".mp3");
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+           long downloadId = downloadManager.enqueue(request);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void sentText(PlayBean playbean) {
+        this.playBean = playbean;
+    }
 
 
 }
