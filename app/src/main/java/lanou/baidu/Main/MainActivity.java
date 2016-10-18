@@ -308,10 +308,12 @@ public class MainActivity extends BaseAty {
         if (200 == requestCode && 100 == resultCode) {
             boolean play = data.getBooleanExtra("playing", true);
             playrpause.setChecked(play);
-            if (play) {
-                musicBinder.restartMusic();
-            } else {
-                musicBinder.stopPlay();
+            if (musicBinder != null) {
+                if (play) {
+                    musicBinder.restartMusic();
+                } else {
+                    musicBinder.stopPlay();
+                }
             }
         }
     }
@@ -633,8 +635,6 @@ public class MainActivity extends BaseAty {
 //     System.exit(0);
         }
     }
-
-
 
 
 }

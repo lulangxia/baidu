@@ -73,7 +73,9 @@
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
-            android:theme="@style/MyDialogStyle"></activity>
+            android:theme="@style/MyDialogStyle">
+
+        </activity>
 
         <!-- Required SDK核心功能 -->
         <activity
