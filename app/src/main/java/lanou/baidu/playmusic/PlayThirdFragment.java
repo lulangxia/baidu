@@ -23,8 +23,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
@@ -43,12 +41,7 @@ public class PlayThirdFragment extends BaseFragment {
 
     private LrcView mLrcView;
     private MyBroadcastReceiver mReceiver;
-    //更新歌词的频率，每秒更新一次
-    private int mPalyTimerDuration = 1000;
-    //更新歌词的定时器
-    private Timer mTimer;
-    //更新歌词的定时任务
-    private TimerTask mTask;
+
 
     private Handler handler;
     private String lrc;

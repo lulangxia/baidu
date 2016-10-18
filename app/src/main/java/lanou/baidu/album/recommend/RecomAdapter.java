@@ -37,7 +37,7 @@ import lanou.baidu.album.recommend.recomsonadapter.SongLAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.TodayAdapter;
 import lanou.baidu.request.GsonRequest;
 import lanou.baidu.main.MainActivity;
-import lanou.baidu.view.MyGridView;
+import lanou.baidu.myview.MyGridView;
 import lanou.baidu.tools.MyImageLoader;
 import lanou.baidu.tools.URLVlaues;
 import lanou.baidu.request.VolleySingleton;

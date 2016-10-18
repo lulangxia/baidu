@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <lanou.baidu.view.CircleImageView
+        <lanou.baidu.myview.CircleImageView
             android:id="@+id/img_today"
             android:layout_width="50dp"
             android:layout_height="50dp"

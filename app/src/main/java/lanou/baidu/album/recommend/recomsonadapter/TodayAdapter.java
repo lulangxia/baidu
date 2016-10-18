@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommainBeanSpare;
-import lanou.baidu.view.CircleImageView;
+import lanou.baidu.myview.CircleImageView;
 import lanou.baidu.tools.MyImageLoader;
 
 /**

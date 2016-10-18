@@ -36,13 +36,13 @@
             android:text="更多" />
     </RelativeLayout>
 
-    <lanou.baidu.view.MyGridView
+    <lanou.baidu.myview.MyGridView
         android:layout_marginTop="10dp"
         android:id="@+id/content_recommend1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:verticalSpacing="15dp">
-    </lanou.baidu.view.MyGridView>
+    </lanou.baidu.myview.MyGridView>
 
     <View
         android:layout_width="match_parent"
