@@ -1,4 +1,4 @@
-package lanou.baidu.base;
+package lanou.baidu.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

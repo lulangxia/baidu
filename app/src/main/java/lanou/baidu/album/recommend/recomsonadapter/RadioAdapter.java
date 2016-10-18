@@ -11,15 +11,15 @@ import android.widget.TextView;
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommainBean;
 import lanou.baidu.bean.recommendbean.RecommainBeanSpare;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/21.
  */
 public class RadioAdapter extends BaseAdapter {
     Context context;
-    RecommainBean recommainBean;
-    RecommainBeanSpare recommainBeanSpare;
+    private RecommainBean recommainBean;
+    private RecommainBeanSpare recommainBeanSpare;
 
     public void setRecommainBeanSpare(RecommainBeanSpare recommainBeanSpare) {
         this.recommainBeanSpare = recommainBeanSpare;

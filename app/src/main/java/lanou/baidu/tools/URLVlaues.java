@@ -1,4 +1,4 @@
-package lanou.baidu.base;
+package lanou.baidu.tools;
 
 /**
  * Created by dllo on 16/5/23.
@@ -21,8 +21,8 @@ public class URLVlaues {
     public static final String PLAY_BEHIND = "&_=1413017198449";
     public static final String SCENCE = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&method=baidu.ting.scene.getCategoryScene&category_id=";
     //http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&method=baidu.ting.ugcdiy.getBaseInfo
-// http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.ugcdiy.getBaseInfo&from=android&listid=354518970&version=5.9.0.0&channel=1413c&operator=1
-// http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.diy.gedanInfo&&from=android&listid=354518970&version=5.9.0&from=ios&channel=1413c
+    // http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.ugcdiy.getBaseInfo&from=android&listid=354518970&version=5.9.0.0&channel=1413c&operator=1
+    // http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.diy.gedanInfo&&from=android&listid=354518970&version=5.9.0&from=ios&channel=1413c
     //http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.diy.gedanInfo&from=ios&listid=5717&version=5.2.3&from=ios&channel=appstore
     public static final String SONGLIST_HOT = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.9.0.0&channel=1413c&operator=1&method=baidu.ting.ugcdiy.getChanneldiy&param=WRZ7j5ADhYE2v%2FhAlCEMZJuRtGFeSHxB840ojko%2BVB3M958LQOsDjNPKT8JoHm9ckU%2BVzNAwTxM71nmU81LatTzNKU7xNSo95v3Whi%2Fx13yos1LbiWUzKHCue3iuop7J&timestamp=1474614530&sign=83866625313e32a12e8c9bbb7677cff5";
     public static final String HOT_SINGER = "http://tingapi.ting.baidu.com/v1/restserver/ting?method=baidu.ting.artist.getList&format=json&order=1&limit=12&offset=0&area=0&sex=0&abc=&from=ios&version=5.2.1&from=ios&channel=appstore";

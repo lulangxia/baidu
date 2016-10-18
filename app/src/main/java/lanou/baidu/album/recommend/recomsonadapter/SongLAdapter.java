@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommainBean;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/21.
@@ -22,7 +22,7 @@ public class SongLAdapter extends BaseAdapter{
     public SongLAdapter(Context mcontext) {
         this.mcontext = mcontext;
     }
-    RecommainBean recommainBean;
+    private RecommainBean recommainBean;
 
     public void setRecommainBean(RecommainBean recommainBean) {
         this.recommainBean = recommainBean;

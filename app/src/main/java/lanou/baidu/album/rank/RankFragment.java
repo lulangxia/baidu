@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.base.GsonRequest;
-import lanou.baidu.base.URLVlaues;
-import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.request.GsonRequest;
+import lanou.baidu.tools.URLVlaues;
+import lanou.baidu.request.VolleySingleton;
 import lanou.baidu.bean.RankBean;
 import lanou.baidu.main.MainActivity;
 import lanou.baidu.rankplayer.RankPlayFragment;
@@ -24,7 +24,7 @@ import lanou.baidu.rankplayer.RankPlayFragment;
  * Created by dllo on 16/9/20.
  */
 public class RankFragment extends BaseFragment {
-    ArrayList<RankBean> arrayList;
+    private ArrayList<RankBean> arrayList;
     private ListView listView;
     private RankAdapter rankAdapter;
 

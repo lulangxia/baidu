@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommainBean;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/21.
@@ -22,7 +22,7 @@ public class NewDAdapter extends BaseAdapter {
         this.mContext = mContext;
     }
 
-    RecommainBean recommainBean;
+    private RecommainBean recommainBean;
 
     public void setRecommainBean(RecommainBean recommainBean) {
         this.recommainBean = recommainBean;

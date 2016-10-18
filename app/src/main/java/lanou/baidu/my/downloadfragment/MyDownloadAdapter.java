@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class MyDownloadAdapter extends FragmentPagerAdapter {
     Context context;
-    ArrayList<Fragment> mFragments;
+    private ArrayList<Fragment> mFragments;
     ArrayList<String> titles = new ArrayList<>();
 
     public void setFragments(ArrayList<Fragment> fragments) {

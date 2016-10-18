@@ -1,4 +1,4 @@
-package lanou.baidu.base;
+package lanou.baidu.service;
 
 import android.media.MediaPlayer;
 

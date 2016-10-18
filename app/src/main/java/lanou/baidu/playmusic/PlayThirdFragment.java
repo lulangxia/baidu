@@ -29,7 +29,12 @@ import java.util.TimerTask;
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
 import lanou.baidu.eventbus.SendSongMessage;
-import lanou.baidu.main.PlayService;
+import lanou.baidu.playmusic.lrc.DefaultLrcBuilder;
+import lanou.baidu.playmusic.lrc.ILrcBuilder;
+import lanou.baidu.playmusic.lrc.ILrcViewListener;
+import lanou.baidu.playmusic.lrc.LrcRow;
+import lanou.baidu.playmusic.lrc.LrcView;
+import lanou.baidu.service.PlayService;
 
 /**
  * Created by dllo on 16/10/12.

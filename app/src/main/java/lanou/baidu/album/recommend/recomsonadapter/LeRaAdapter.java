@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommendNewBean;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/22.
@@ -21,7 +21,7 @@ public class LeRaAdapter extends BaseAdapter{
     public LeRaAdapter(Context mcontext) {
         this.mcontext = mcontext;
     }
-    RecommendNewBean recommendNewBean;
+    private RecommendNewBean recommendNewBean;
 
     public void setRecommendNewBean(RecommendNewBean recommendNewBean) {
         this.recommendNewBean = recommendNewBean;

@@ -35,12 +35,12 @@ import lanou.baidu.album.recommend.recomsonadapter.NewDAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.RadioAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.SongLAdapter;
 import lanou.baidu.album.recommend.recomsonadapter.TodayAdapter;
-import lanou.baidu.base.GsonRequest;
+import lanou.baidu.request.GsonRequest;
 import lanou.baidu.main.MainActivity;
-import lanou.baidu.base.MyGridView;
-import lanou.baidu.base.MyImageLoader;
-import lanou.baidu.base.URLVlaues;
-import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.view.MyGridView;
+import lanou.baidu.tools.MyImageLoader;
+import lanou.baidu.tools.URLVlaues;
+import lanou.baidu.request.VolleySingleton;
 import lanou.baidu.replacefragment.SingerFragment;
 
 /**
@@ -48,12 +48,12 @@ import lanou.baidu.replacefragment.SingerFragment;
  */
 public class RecomAdapter extends RecyclerView.Adapter {
     Context mContext;
-    ArrayList<RecomBean> arrayList;
+    private ArrayList<RecomBean> arrayList;
 
     private SongLAdapter songLAdapter;
     private Handler mHandler;
 
-    Changed changed;
+    private Changed changed;
 
     public void setChanged(Changed changed) {
         this.changed = changed;

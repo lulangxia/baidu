@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
 
-    <lanou.baidu.playmusic.LrcView
+    <lanou.baidu.playmusic.lrc.LrcView
         android:id="@+id/lrc_play"
         android:layout_gravity="center"
         android:layout_width="match_parent"

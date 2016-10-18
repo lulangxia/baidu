@@ -11,14 +11,14 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommendNewBean;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/22.
  */
 public class ColumAdapter extends BaseAdapter {
     Context context;
-    RecommendNewBean recommendNewBean;
+    private RecommendNewBean recommendNewBean;
 
     public ColumAdapter(Context context) {
         this.context = context;

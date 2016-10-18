@@ -16,25 +16,23 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 import lanou.baidu.R;
-import lanou.baidu.base.GsonRequest;
-import lanou.baidu.bean.SongLIstHotBean;
-import lanou.baidu.bean.SongListOldBean;
-import lanou.baidu.main.MainActivity;
-import lanou.baidu.base.MyImageLoader;
-import lanou.baidu.base.URLVlaues;
-import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.request.GsonRequest;
+import lanou.baidu.tools.MyImageLoader;
+import lanou.baidu.tools.URLVlaues;
+import lanou.baidu.request.VolleySingleton;
+import lanou.baidu.bean.MediaLIstBean;
 import lanou.baidu.bean.MusicBean;
 import lanou.baidu.bean.MyMusicBean;
+import lanou.baidu.bean.SongLIstHotBean;
+import lanou.baidu.main.MainActivity;
 import lanou.baidu.musicmedia.MediaFragment;
-import lanou.baidu.bean.MediaLIstBean;
 
 /**
  * Created by dllo on 16/9/23.
  */
 public class SongListAdapter extends BaseAdapter {
 
-    ArrayList<SongListOldBean> arrayListold = new ArrayList<>();
-    ArrayList<String> Songlist = new ArrayList<>();
+
     Context context;
     boolean down = false;
     private MusicBean musicBean;
@@ -43,14 +41,7 @@ public class SongListAdapter extends BaseAdapter {
     ArrayList<SongLIstHotBean> arrayList = new ArrayList<>();
 
 
-    public void setArrayListold(ArrayList<SongListOldBean> arrayListold1) {
-        if (down) {
-            arrayListold.addAll(arrayListold1);
-        } else {
-            this.arrayListold = arrayListold1;
-        }
-        notifyDataSetChanged();
-    }
+
 
     public void setDown(boolean down) {
         this.down = down;

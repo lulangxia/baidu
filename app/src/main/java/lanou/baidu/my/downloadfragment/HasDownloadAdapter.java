@@ -21,7 +21,7 @@ public class HasDownloadAdapter extends BaseAdapter {
         this.mContext = mContext;
     }
 
-    MyMusicBean myMusicBean;
+    private MyMusicBean myMusicBean;
 
     public void setMyMusicBean(MyMusicBean myMusicBean) {
         this.myMusicBean = myMusicBean;

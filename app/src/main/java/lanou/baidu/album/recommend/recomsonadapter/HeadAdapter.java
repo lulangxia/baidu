@@ -7,12 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-
 import lanou.baidu.R;
-import lanou.baidu.bean.recommendbean.RecommainBean;
+import lanou.baidu.tools.MyImageLoader;
 import lanou.baidu.bean.recommendbean.RecommendNewBean;
-import lanou.baidu.base.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/20.
@@ -24,17 +21,13 @@ public class HeadAdapter extends PagerAdapter {
         this.context = context;
     }
 
-    RecommendNewBean recommendNew;
+    private RecommendNewBean recommendNew;
 
     public void setRecommendNew(RecommendNewBean recommendNew) {
         this.recommendNew = recommendNew;
     }
 
-    ArrayList<RecommainBean> arrayList = new ArrayList<>();
 
-    public void setImageViews(ArrayList<RecommainBean> arrayList) {
-        this.arrayList = arrayList;
-    }
 
     @Override
     public int getCount() {

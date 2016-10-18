@@ -26,7 +26,7 @@ import java.net.URL;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 import lanou.baidu.eventbus.SendSongMessage;
 
 /**

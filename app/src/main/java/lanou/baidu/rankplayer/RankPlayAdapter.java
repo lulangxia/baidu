@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import lanou.baidu.R;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 import lanou.baidu.bean.RankPlayBean;
 import lanou.baidu.musicmedia.OnRecyclerItemClickListener;
 

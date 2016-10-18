@@ -12,11 +12,12 @@ import java.util.ArrayList;
  */
 public class AlbumAdapter extends FragmentPagerAdapter {
     Context mcontext;
-    ArrayList<Fragment> arrayList = new ArrayList<>();
-    ArrayList<String> titles = new ArrayList<>();
+    private ArrayList<Fragment> arrayList;
+    private ArrayList<String> titles;
 
     public void setArrayList(ArrayList<Fragment> arrayList) {
         this.arrayList = arrayList;
+        titles = new ArrayList<>();
         titles.add("推荐");
         titles.add("歌单");
         titles.add("榜单");

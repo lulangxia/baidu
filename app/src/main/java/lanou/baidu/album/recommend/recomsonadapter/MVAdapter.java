@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommainBeanSpare;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/21.
@@ -21,7 +21,7 @@ public class MVAdapter extends BaseAdapter{
     public MVAdapter(Context context) {
         this.context = context;
     }
-    RecommainBeanSpare recommainBeanSpare;
+    private RecommainBeanSpare recommainBeanSpare;
 
     public void setRecommainBeanSpare(RecommainBeanSpare recommainBeanSpare) {
         this.recommainBeanSpare = recommainBeanSpare;

@@ -16,9 +16,9 @@ import lanou.baidu.bean.MyMusicBean;
  */
 public class PopAdapter extends BaseAdapter {
     Context context;
-    MyMusicBean myMusicBean;
+    private MyMusicBean myMusicBean;
 
-    OndeleteItemListener ondeleteItemListener;
+    private OndeleteItemListener ondeleteItemListener;
     private PopViewHolder popViewHolder;
 
 

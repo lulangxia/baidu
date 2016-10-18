@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 import lanou.baidu.R;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.base.GsonRequest;
+import lanou.baidu.request.GsonRequest;
 import lanou.baidu.bean.HotSIngerBean;
 import lanou.baidu.main.MainActivity;
-import lanou.baidu.base.URLVlaues;
-import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.tools.URLVlaues;
+import lanou.baidu.request.VolleySingleton;
 
 /**
  * Created by dllo on 16/9/26.

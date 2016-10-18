@@ -16,10 +16,10 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 import lanou.baidu.R;
-import lanou.baidu.base.GsonRequest;
-import lanou.baidu.base.MyImageLoader;
-import lanou.baidu.base.URLVlaues;
-import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.request.GsonRequest;
+import lanou.baidu.tools.MyImageLoader;
+import lanou.baidu.tools.URLVlaues;
+import lanou.baidu.request.VolleySingleton;
 import lanou.baidu.bean.MusicBean;
 import lanou.baidu.bean.MyMusicBean;
 import lanou.baidu.bean.RankBean;
@@ -38,7 +38,7 @@ public class RankAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    ArrayList<RankBean> arrayList = new ArrayList<>();
+    private ArrayList<RankBean> arrayList;
 
     public void setArrayList(ArrayList<RankBean> arrayList) {
         this.arrayList = arrayList;

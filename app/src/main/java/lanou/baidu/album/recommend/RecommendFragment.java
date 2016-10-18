@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import lanou.baidu.R;
 import lanou.baidu.album.AlbumFragment;
 import lanou.baidu.base.BaseFragment;
-import lanou.baidu.base.URLVlaues;
+import lanou.baidu.tools.URLVlaues;
 import lanou.baidu.bean.RecomBean;
 
 /**

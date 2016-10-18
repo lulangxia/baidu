@@ -1,4 +1,4 @@
-package lanou.baidu.base;
+package lanou.baidu.tools;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;

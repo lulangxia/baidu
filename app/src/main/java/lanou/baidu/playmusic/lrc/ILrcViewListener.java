@@ -1,4 +1,4 @@
-package lanou.baidu.playmusic;
+package lanou.baidu.playmusic.lrc;
 
 /**
  * 歌词拖动时候的监听类

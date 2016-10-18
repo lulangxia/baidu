@@ -22,13 +22,13 @@ public class MediaListAdapter extends RecyclerView.Adapter {
         this.context = context;
     }
 
-    OnRecyclerItemClickListener onRecyclerItemClickListener;
+    private OnRecyclerItemClickListener onRecyclerItemClickListener;
 
     public void setOnRecyclerItemClickListener(OnRecyclerItemClickListener onRecyclerItemClickListener) {
         this.onRecyclerItemClickListener = onRecyclerItemClickListener;
     }
 
-    MediaLIstBean mediaLIstBean;
+    private MediaLIstBean mediaLIstBean;
 
     public void setMediaLIstBean(MediaLIstBean mediaLIstBean) {
         this.mediaLIstBean = mediaLIstBean;

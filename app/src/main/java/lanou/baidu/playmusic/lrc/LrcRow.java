@@ -1,4 +1,4 @@
-package lanou.baidu.playmusic;
+package lanou.baidu.playmusic.lrc;
 
 import android.util.Log;
 

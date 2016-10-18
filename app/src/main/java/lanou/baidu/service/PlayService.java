@@ -1,4 +1,4 @@
-package lanou.baidu.main;
+package lanou.baidu.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -23,7 +23,6 @@ import lanou.baidu.bean.MusicBean;
 import lanou.baidu.eventbus.NextorLast;
 import lanou.baidu.eventbus.SendSongMessage;
 import lanou.baidu.bean.PlayBean;
-import lanou.baidu.base.PlayerSingleton;
 
 
 /**
@@ -34,8 +33,8 @@ public class PlayService extends Service {
     private MediaPlayer mMediaPlayer;
     private boolean isBind;
 
-    String Songid;
-    ArrayList<String> Songlist;
+    private String Songid;
+    private ArrayList<String> Songlist;
 
 
     private Bitmap mBitmap;

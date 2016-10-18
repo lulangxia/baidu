@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import lanou.baidu.R;
 import lanou.baidu.bean.recommendbean.RecommainBean;
-import lanou.baidu.base.MyImageLoader;
+import lanou.baidu.tools.MyImageLoader;
 
 /**
  * Created by dllo on 16/9/21.
  */
 public class HotAdapter extends BaseAdapter{
-    RecommainBean recommainBean;
+    private RecommainBean recommainBean;
     Context context;
 
     public HotAdapter(Context context) {

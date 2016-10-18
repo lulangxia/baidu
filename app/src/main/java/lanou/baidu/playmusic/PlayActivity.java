@@ -39,7 +39,7 @@ import lanou.baidu.database.DBTools;
 import lanou.baidu.eventbus.NextorLast;
 import lanou.baidu.eventbus.PlayMode;
 import lanou.baidu.main.MainActivity;
-import lanou.baidu.main.PlayService;
+import lanou.baidu.service.PlayService;
 
 public class PlayActivity extends BaseAty {
 

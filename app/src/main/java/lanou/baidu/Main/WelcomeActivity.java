@@ -16,7 +16,7 @@ public class WelcomeActivity extends BaseAty{
 
     private ImageView mImageView;
     private TextView mTextView;
-    int time=5;
+    private int time=5;
     Timer timer = new Timer();
 
     @Override

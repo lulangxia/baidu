@@ -54,9 +54,10 @@ import lanou.baidu.R;
 import lanou.baidu.TestFragment;
 import lanou.baidu.album.AlbumFragment;
 import lanou.baidu.base.BaseAty;
-import lanou.baidu.base.MyImageLoader;
-import lanou.baidu.base.URLVlaues;
-import lanou.baidu.base.VolleySingleton;
+import lanou.baidu.service.PlayService;
+import lanou.baidu.tools.MyImageLoader;
+import lanou.baidu.tools.URLVlaues;
+import lanou.baidu.request.VolleySingleton;
 import lanou.baidu.bean.MusicBean;
 import lanou.baidu.bean.MyMusicBean;
 import lanou.baidu.bean.PlayBean;
@@ -459,7 +460,6 @@ public class MainActivity extends BaseAty {
                 position = new Random().nextInt(myMusicBean.getMusicBeen().size() - 1);
                 break;
             case URLVlaues.DANQU:
-
                 break;
             default:
                 if (position == myMusicBean.getMusicBeen().size() - 1) {
@@ -470,7 +470,6 @@ public class MainActivity extends BaseAty {
                 }
                 break;
         }
-
         playSong();
     }
 

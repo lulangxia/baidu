@@ -1,8 +1,10 @@
-package lanou.baidu.base;
+package lanou.baidu.request;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+
+import lanou.baidu.base.MyApp;
 
 /**
  * Created by dllo on 16/9/20.
